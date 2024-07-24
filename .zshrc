@@ -103,6 +103,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source <(fzf --zsh)
+
+alias vim="nvim"
+alias vi="vim"
+alias nvimconf="vim $HOME/.config/nvim/"
+alias tmuxconf="vim $HOME/.config/tmux/"
+alias zshrc="vim $HOME/.zshrc"
+
+
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 export NVM_DIR="$HOME/.nvm"
