@@ -108,6 +108,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="eza -l"
 
+printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
+
 export PATH="$PATH:~/.local/zed.app/bin/zed"
 export PATH=$HOME/.local/bin:$PATH
 

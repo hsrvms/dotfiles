@@ -9,7 +9,7 @@
   "features": {
     "inline_completion_provider": "supermaven"
   },
-  "theme": "Ayu Dark",
+  "theme": "Andromeda",
   "vim_mode": true,
   "buffer_font_family": "FiraCode Nerd Font",
   "buffer_font_size": 14,
@@ -46,7 +46,7 @@
     "use_multiline_find": true
   },
   "project_panel": {
-    "auto_fold_dirs": false
+    "auto_fold_dirs": true
   },
   "languages": {
     "Python": {
@@ -72,7 +72,7 @@
       "initialization_options": {
         "settings": {
           // Ruff server settings goes here
-          "lineLength": 80,
+          "lineLength": 90,
           "lint": {
             "extendSelect": ["I"]
           }
