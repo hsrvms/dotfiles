@@ -1,8 +1,12 @@
 {
+  "inline_completions": {
+    "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
+  },
+  "show_inline_completions": false,
   "assistant": {
     "default_model": {
-      "provider": "openai",
-      "model": "gpt-4o"
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-latest"
     },
     "version": "2"
   },
