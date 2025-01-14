@@ -1,47 +1,52 @@
 #!/bin/bash
 
-# Check if gsettings command exists
-if ! command -v gsettings &> /dev/null; then
-    echo "gsettings command not found. Please ensure GNOME is installed."
-    exit 1
-fi
+# Disable animations
+gsettings set org.gnome.desktop.interface enable-animations false
 
-# Function to set gsettings
-set_gsetting() {
-    if ! gsettings set "$1" "$2" "$3"; then
-        echo "Failed to set $1 $2"
-        return 1
-    fi
-}
+# Set workspaces only on primary monitor
+gsettings set org.gnome.mutter workspaces-only-on-primary true
 
-# Dock settings
-set_gsetting org.gnome.shell.extensions.dash-to-dock autohide-in-fullscreen true
-set_gsetting org.gnome.shell.extensions.dash-to-dock dock-fixed false
-set_gsetting org.gnome.shell.extensions.dash-to-dock autohide true
-set_gsetting org.gnome.shell.extensions.dash-to-dock intellihide false
+# Disable dynamic workspaces
+gsettings set org.gnome.mutter dynamic-workspaces false
 
-# Disable workspace switching animations
-set_gsetting org.gnome.desktop.interface enable-animations false
-set_gsetting org.gnome.mutter workspaces-only-on-primary true
+# Set fixed number of workspaces
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 9
 
-# Workspace switching shortcuts
+# Disable application switching shortcuts
 for i in {1..9}; do
-    set_gsetting org.gnome.desktop.wm.keybindings "switch-to-workspace-$i" "['<Super>$i']"
-    set_gsetting org.gnome.desktop.wm.keybindings "move-to-workspace-$i" "['<Super><Shift>$i']"
+    gsettings set org.gnome.shell.keybindings "switch-to-application-$i" "[]"
 done
 
+# Reset all workspace switching keybindings
+for i in {1..9}; do
+    gsettings reset org.gnome.desktop.wm.keybindings "switch-to-workspace-$i"
+    gsettings reset org.gnome.desktop.wm.keybindings "move-to-workspace-$i"
+done
+
+# Set them again
+for i in {1..9}; do
+    gsettings set org.gnome.desktop.wm.keybindings "switch-to-workspace-$i" "['<Super>$i']"
+    gsettings set org.gnome.desktop.wm.keybindings "move-to-workspace-$i" "['<Super><Shift>$i']"
+done
+
+gsettings list-recursively | grep -i "super.*[1-9]"
+
 # Window management
-set_gsetting org.gnome.desktop.wm.keybindings close "['<Super><Shift>q']"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Super><Shift>q']"
 
-# Application shortcuts
-CUSTOM_KEYS_PATH="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+# Warp Terminal (custom0)
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Launch Warp Terminal"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "warp-terminal"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
 
-# Warp terminal
-set_gsetting "$CUSTOM_KEYS_PATH/launch-warp/" binding '<Super>Return'
-set_gsetting "$CUSTOM_KEYS_PATH/launch-warp/" command 'warp-terminal'
-set_gsetting "$CUSTOM_KEYS_PATH/launch-warp/" name 'Launch Warp Terminal'
+# Google Chrome (custom1)
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name "Launch Google Chrome"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command "google-chrome"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding "<Super><Shift>Return"
 
-# Google Chrome
-set_gsetting "$CUSTOM_KEYS_PATH/launch-chrome/" binding '<Super><Shift>Return'
-set_gsetting "$CUSTOM_KEYS_PATH/launch-chrome/" command 'google-chrome'
-set_gsetting "$CUSTOM_KEYS_PATH/launch-chrome/" name 'Launch Google Chrome'
+# You can verify the shortcuts are set correctly
+gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+
+# And check specific shortcut details with
+gsettings list-recursively org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/
+gsettings list-recursively org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/
