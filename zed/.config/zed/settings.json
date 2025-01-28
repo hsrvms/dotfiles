@@ -13,7 +13,7 @@
   "features": {
     "inline_completion_provider": "supermaven"
   },
-  "theme": "Github Dark Dimmed",
+  "theme": "Andromeda",
   "vim_mode": true,
   "buffer_font_family": "FiraCode Nerd Font",
   "buffer_font_size": 14,

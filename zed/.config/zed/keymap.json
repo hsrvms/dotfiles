@@ -47,8 +47,15 @@
       "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
       "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
       "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem",
-      "p": "editor::Paste"
+      "shift-h": "pane::ActivatePrevItem"
+      // "p": "editor::Paste"
+      // "p": "vim::Paste"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
+    "bindings": {
+      "p": ["vim::Paste", { "preserveClipboard": true }]
     }
   },
   {
