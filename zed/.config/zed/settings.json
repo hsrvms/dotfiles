@@ -1,4 +1,5 @@
 {
+  "ssh_connections": [],
   "inline_completions": {
     "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
   },

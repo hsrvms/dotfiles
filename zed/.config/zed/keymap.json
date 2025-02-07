@@ -48,8 +48,6 @@
       "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePrevItem"
-      // "p": "editor::Paste"
-      // "p": "vim::Paste"
     }
   },
   {
