@@ -14,7 +14,7 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "Andromeda",
+  "theme": "Ayu Dark",
   "vim_mode": true,
   "buffer_font_family": "FiraCode Nerd Font",
   "buffer_font_size": 14,
