@@ -3,13 +3,14 @@
   "edit_predictions": {
     "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
   },
+
   "active_pane_modifiers": {
-    "magnification": 1.2,
-    "border_size": 0.0,
+    "magnification": 1.0,
+    "border_size": 1.0,
     "inactive_opacity": 0.5
   },
   "show_edit_predictions": false,
-  "agent": {
+  "assistant": {
     "inline_assistant_model": {
       "provider": "zed.dev",
       "model": "claude-3-7-sonnet-latest"
