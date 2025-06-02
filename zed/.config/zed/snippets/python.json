@@ -9,5 +9,10 @@
       "$0"
     ],
     "description": "try-except block"
+  },
+  "Print Debug Log": {
+    "prefix": "printdebug",
+    "body": ["print(\"Debug:\", $1)"],
+    "description": "Debug log"
   }
 }

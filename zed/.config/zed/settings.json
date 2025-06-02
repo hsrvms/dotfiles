@@ -4,12 +4,13 @@
     "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
   },
   "active_pane_modifiers": {
-    "magnification": 1.2,
+    "magnification": 1.1,
     "border_size": 0.0,
-    "inactive_opacity": 0.5
+    "inactive_opacity": 0.8
   },
   "show_edit_predictions": false,
   "agent": {
+    "default_profile": "write",
     "inline_assistant_model": {
       "provider": "zed.dev",
       "model": "claude-3-7-sonnet-latest"
@@ -23,7 +24,7 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "Ayu Dark",
+  "theme": "Gruvbox Dark Hard",
   "vim_mode": true,
   "buffer_font_family": "FiraCode Nerd Font",
   "buffer_font_size": 14,
