@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "ssh_connections": [
     {
       "host": "192.168.0.42",
@@ -26,6 +27,27 @@
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
+=======
+  "ssh_connections": [],
+  "edit_predictions": {
+    "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
+  },
+
+  "active_pane_modifiers": {
+    "magnification": 1.0,
+    "border_size": 1.0,
+    "inactive_opacity": 0.5
+  },
+  "show_edit_predictions": false,
+  "assistant": {
+    "inline_assistant_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet-latest"
+    },
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet-thinking-latest"
+>>>>>>> 58a5eb1c0feeed8d4bd42da5495e859f01c38bd8
     },
     "version": "2"
   },
