@@ -5,10 +5,14 @@
       "username": "erp",
       "projects": [
         {
-          "paths": ["/home/erp/Masaüstü"]
+          "paths": [
+            "/home/erp/Masaüstü"
+          ]
         },
         {
-          "paths": ["/home/erp/Masaüstü/frappe-bench-live/apps"]
+          "paths": [
+            "/home/erp/Masaüstü/frappe-bench-live/apps"
+          ]
         }
       ]
     }
@@ -21,8 +25,9 @@
     "default_profile": "write",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4-thinking"
-    }
+      "model": "claude-sonnet-4"
+    },
+    "version": "2"
   },
   "features": {
     "edit_prediction_provider": "zed"
@@ -86,9 +91,6 @@
     }
   },
   "lsp": {
-    "jdtls": {
-      "initialization_options": {}
-    },
     "ruff": {
       "initialization_options": {
         "settings": {
