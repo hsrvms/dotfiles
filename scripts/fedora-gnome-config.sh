@@ -84,4 +84,3 @@ echo "Close window shortcut:"
 gsettings get org.gnome.desktop.wm.keybindings close
 echo "Custom shortcuts:"
 gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
-
