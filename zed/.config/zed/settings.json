@@ -3,14 +3,48 @@
     {
       "host": "192.168.0.42",
       "username": "erp",
+      "args": [],
       "projects": [
         {
-          "paths": ["/home/erp/Masaüstü"]
+          "paths": [
+            "/home/erp/Masaüstü"
+          ]
         },
         {
-          "paths": ["/home/erp/Masaüstü/frappe-bench-live/apps"]
+          "paths": [
+            "/home/erp/Masaüstü/frappe-bench-live"
+          ]
+        },
+        {
+          "paths": [
+            "/home/erp/Masaüstü/frappe-bench-live/apps"
+          ]
         }
       ]
+    },
+    {
+      "host": "192.168.0.142",
+      "username": "erp",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home/erp/Masaüstü/frappe-bench-dev"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "192.168.0.142",
+      "username": "erp",
+      "args": [],
+      "projects": []
+    },
+    {
+      "host": "192.168.0.142",
+      "username": "erp",
+      "args": [],
+      "projects": []
     }
   ],
   "edit_predictions": {
@@ -67,6 +101,9 @@
     "auto_fold_dirs": false
   },
   "languages": {
+    "C": {
+      "format_on_save": "on"
+    },
     "Python": {
       "language_servers": ["pyright", "ruff"],
       "format_on_save": "on",
