@@ -1,36 +1,12 @@
 {
   "ssh_connections": [
     {
-      "host": "192.168.0.42",
-      "username": "erp",
-      "args": [],
-      "projects": [
-        {
-          "paths": [
-            "/home/erp/Masaüstü"
-          ]
-        },
-        {
-          "paths": [
-            "/home/erp/Masaüstü/frappe-bench-live"
-          ]
-        },
-        {
-          "paths": [
-            "/home/erp/Masaüstü/frappe-bench-live/apps"
-          ]
-        }
-      ]
-    },
-    {
       "host": "192.168.0.142",
       "username": "erp",
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/home/erp/Masaüstü/frappe-bench-dev"
-          ]
+          "paths": ["/home/erp/Masaüstü/frappe-bench-dev"]
         }
       ]
     },
@@ -61,13 +37,13 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "Ayu Dark",
+  "theme": "Catppuccin Mocha",
   "vim_mode": true,
-  "buffer_font_family": "FiraCode Nerd Font",
+  "buffer_font_family": "Iosevka Nerd Font",
   "buffer_font_size": 14,
   "vertical_scroll_margin": 10,
   "base_keymap": "VSCode",
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "cursor_blink": false,
   "scrollbar": {
     "show": "never"
@@ -83,7 +59,7 @@
     "custom": 1.5
   },
   "terminal": {
-    "font_family": "FiraCode Nerd Font",
+    "font_family": "Iosevka Nerd Font",
     "font_size": 14,
     "line_height": {
       "custom": 1.5
@@ -93,9 +69,8 @@
     // "always": use system clipboard when no register is specified
     // "never": don't use system clipboard unless "+ or "* is specified
     // "on_yank": use system clipboard for yank operations when no register is specified
-    "use_system_clipboard": "always",
+    "use_system_clipboard": "always"
     // Lets `f` and `t` motions extend across multiple lines
-    "use_multiline_find": true
   },
   "project_panel": {
     "auto_fold_dirs": false
@@ -108,12 +83,8 @@
       "language_servers": ["pyright", "ruff"],
       "format_on_save": "on",
       "formatter": [
-        {
-          "code_actions": {
-            "source.organizeImports.ruff": true,
-            "source.fixAll.ruff": true
-          }
-        },
+        { "code_action": "source.organizeImports.ruff" },
+        { "code_action": "source.fixAll.ruff" },
         {
           "language_server": {
             "name": "ruff"

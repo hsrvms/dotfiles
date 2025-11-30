@@ -1,9 +1,9 @@
 {
-<<<<<<< HEAD
   "ssh_connections": [
     {
       "host": "192.168.0.42",
       "username": "erp",
+      "args": [],
       "projects": [
         {
           "paths": [
@@ -12,10 +12,39 @@
         },
         {
           "paths": [
+            "/home/erp/Masaüstü/frappe-bench-live"
+          ]
+        },
+        {
+          "paths": [
             "/home/erp/Masaüstü/frappe-bench-live/apps"
           ]
         }
       ]
+    },
+    {
+      "host": "192.168.0.142",
+      "username": "erp",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home/erp/Masaüstü/frappe-bench-dev"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "192.168.0.142",
+      "username": "erp",
+      "args": [],
+      "projects": []
+    },
+    {
+      "host": "192.168.0.142",
+      "username": "erp",
+      "args": [],
+      "projects": []
     }
   ],
   "edit_predictions": {
@@ -26,35 +55,13 @@
     "default_profile": "write",
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4"
-=======
-  "ssh_connections": [],
-  "edit_predictions": {
-    "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
-  },
-
-  "active_pane_modifiers": {
-    "magnification": 1.0,
-    "border_size": 1.0,
-    "inactive_opacity": 0.5
-  },
-  "show_edit_predictions": false,
-  "assistant": {
-    "inline_assistant_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
-    },
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-thinking-latest"
->>>>>>> 58a5eb1c0feeed8d4bd42da5495e859f01c38bd8
-    },
-    "version": "2"
+      "model": "claude-sonnet-4-thinking"
+    }
   },
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "Ayu Dark",
+  "theme": "Catppuccin Mocha",
   "vim_mode": true,
   "buffer_font_family": "FiraCode Nerd Font",
   "buffer_font_size": 14,
@@ -94,6 +101,9 @@
     "auto_fold_dirs": false
   },
   "languages": {
+    "C": {
+      "format_on_save": "on"
+    },
     "Python": {
       "language_servers": ["pyright", "ruff"],
       "format_on_save": "on",
@@ -113,6 +123,9 @@
     }
   },
   "lsp": {
+    "jdtls": {
+      "initialization_options": {}
+    },
     "ruff": {
       "initialization_options": {
         "settings": {
