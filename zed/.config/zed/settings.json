@@ -1,123 +1,166 @@
 {
-  "ssh_connections": [
-    {
-      "host": "192.168.0.142",
-      "username": "erp",
-      "args": [],
-      "projects": [
+    "ssh_connections": [
         {
-          "paths": ["/home/erp/Masaüstü/frappe-bench-dev"]
-        }
-      ]
-    },
-    {
-      "host": "192.168.0.142",
-      "username": "erp",
-      "args": [],
-      "projects": []
-    },
-    {
-      "host": "192.168.0.142",
-      "username": "erp",
-      "args": [],
-      "projects": []
-    }
-  ],
-  "edit_predictions": {
-    "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
-  },
-  "show_edit_predictions": false,
-  "agent": {
-    "default_profile": "write",
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4-thinking"
-    }
-  },
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
-  "theme": "Catppuccin Mocha",
-  "vim_mode": true,
-  "buffer_font_family": "Iosevka Nerd Font",
-  "buffer_font_size": 14,
-  "vertical_scroll_margin": 10,
-  "base_keymap": "VSCode",
-  "relative_line_numbers": "enabled",
-  "cursor_blink": false,
-  "scrollbar": {
-    "show": "never"
-  },
-  "tab_bar": {
-    "show": true,
-    "show_nav_history_buttons": false
-  },
-  "tabs": {
-    "git_status": true
-  },
-  "buffer_line_height": {
-    "custom": 1.5
-  },
-  "terminal": {
-    "font_family": "Iosevka Nerd Font",
-    "font_size": 14,
-    "line_height": {
-      "custom": 1.5
-    }
-  },
-  "vim": {
-    // "always": use system clipboard when no register is specified
-    // "never": don't use system clipboard unless "+ or "* is specified
-    // "on_yank": use system clipboard for yank operations when no register is specified
-    "use_system_clipboard": "always"
-    // Lets `f` and `t` motions extend across multiple lines
-  },
-  "project_panel": {
-    "auto_fold_dirs": false
-  },
-  "languages": {
-    "C": {
-      "format_on_save": "on"
-    },
-    "Python": {
-      "language_servers": ["pyright", "ruff"],
-      "format_on_save": "on",
-      "formatter": [
-        { "code_action": "source.organizeImports.ruff" },
-        { "code_action": "source.fixAll.ruff" },
-        {
-          "language_server": {
-            "name": "ruff"
-          }
-        }
-      ]
-    }
-  },
-  "lsp": {
-    "jdtls": {
-      "initialization_options": {}
-    },
-    "ruff": {
-      "initialization_options": {
-        "settings": {
-          // Ruff server settings goes here
-          "lineLength": 90,
-          "lint": {
-            "extendSelect": ["I"]
-          }
-        }
-      }
-    },
-    "pyright": {
-      "settings": {
-        "python.analysis": {
-          "diagnosticMode": "workspace",
-          "typeCheckingMode": "off"
+            "host": "192.168.0.142",
+            "username": "erp",
+            "args": [],
+            "projects": [
+                {
+                    "paths": ["/home/erp/Masaüstü/frappe-bench-dev"]
+                }
+            ]
         },
-        "python": {
-          "pythonPath": ".venv/bin/python"
+        {
+            "host": "192.168.0.142",
+            "username": "erp",
+            "args": [],
+            "projects": []
+        },
+        {
+            "host": "192.168.0.142",
+            "username": "erp",
+            "args": [],
+            "projects": []
         }
-      }
+    ],
+    "edit_predictions": {
+        "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"]
+    },
+    "show_edit_predictions": false,
+    "agent": {
+        "default_profile": "write",
+        "default_model": {
+            "provider": "google",
+            "model": "gemini-2.5-flash"
+        }
+    },
+    "features": {
+        "edit_prediction_provider": "zed"
+    },
+    "theme": "Catppuccin Mocha",
+    "icon_theme": "Catppuccin Mocha",
+    "vim_mode": true,
+    "buffer_font_family": "Iosevka Nerd Font",
+    "buffer_font_size": 15,
+    "vertical_scroll_margin": 10,
+    "base_keymap": "VSCode",
+    "relative_line_numbers": "enabled",
+    "cursor_blink": false,
+    "scrollbar": {
+        "show": "never"
+    },
+    "tab_size": 4,
+    "hard_tabs": false,
+    "tab_bar": {
+        "show": true,
+        "show_nav_history_buttons": false
+    },
+    "centered_layout": {
+        "left_padding": 0.2,
+        "right_padding": 0.2
+    },
+    "indent_guides": {
+        "enabled": true,
+        "active_line_width": 1,
+        "line_width": 1
+    },
+
+    "soft_wrap": null,
+    "preferred_line_length": 160,
+    "tabs": {
+        "git_status": true,
+        "file_icons": true
+    },
+    "buffer_line_height": {
+        "custom": 1.4
+    },
+
+    "buffer_font_features": { "calt": false },
+    "buffer_font_weight": 300,
+    "toolbar": {
+        "breadcrumbs": false,
+        "quick_actions": false
+    },
+    "current_line_highlight": "none",
+    "terminal": {
+        "font_family": "Iosevka Nerd Font",
+        "font_size": 14,
+        "line_height": {
+            "custom": 1.4
+        },
+        "detect_venv": {
+            "on": {
+                "directories": [".env", "env", ".venv", "venv"],
+                "activate_script": "default"
+            }
+        }
+    },
+    "vim": {
+        // "always": use system clipboard when no register is specified
+        // "never": don't use system clipboard unless "+ or "* is specified
+        // "on_yank": use system clipboard for yank operations when no register is specified
+        "use_system_clipboard": "always"
+        // Lets `f` and `t` motions extend across multiple lines
+    },
+    "project_panel": {
+        "auto_fold_dirs": false,
+        "entry_spacing": "standard"
+    },
+    "languages": {
+        "C": {
+            "format_on_save": "off"
+        },
+        "CSharp": {
+            "format_on_save": "off"
+        },
+        "JavaScript": {
+            "format_on_save": "off"
+        },
+        "Python": {
+            "language_servers": ["pyright", "ruff"],
+            "format_on_save": "off",
+            "formatter": [
+                {
+                    "code_action": "source.organizeImports.ruff"
+                },
+                {
+                    "code_action": "source.fixAll.ruff"
+                },
+                {
+                    "language_server": {
+                        "name": "ruff"
+                    }
+                }
+            ]
+        }
+    },
+    "lsp": {
+        "jdtls": {
+            "initialization_options": {}
+        },
+        "ruff": {
+            "initialization_options": {
+                "settings": {
+                    // Ruff server settings goes here
+                    "lineLength": 90,
+                    "lint": {
+                        "extendSelect": ["I"]
+                    }
+                }
+            }
+        },
+        "pyright": {
+            "settings": {
+                "python.analysis": {
+                    "diagnosticMode": "workspace",
+                    "typeCheckingMode": "off"
+                },
+                "python": {
+                    // "pythonPath": ".venv/bin/python",
+                    "venvPath": ".",
+                    "venv": ".venv"
+                }
+            }
+        }
     }
-  }
 }
