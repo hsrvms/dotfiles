@@ -1,11 +1,12 @@
 ---
-"input:clear_screen": none
-"pane_group:add_right": ctrl-shift-|
-"pane_group:add_down": ctrl-shift-_
-"pane_group:resize_right": ctrl-cmd-right
-"pane_group:navigate_next": ctrl-l
-"pane_group:resize_down": ctrl-cmd-down
 "editor_view:backspace": none
 "pane_group:resize_up": ctrl-cmd-up
 "pane_group:resize_left": ctrl-cmd-left
+"workspace:rename_active_tab": ctrl-alt-r
+"pane_group:resize_down": ctrl-cmd-down
+"input:clear_screen": none
+"pane_group:resize_right": ctrl-cmd-right
+"pane_group:add_down": ctrl-shift-_
+"pane_group:navigate_next": ctrl-l
 "pane_group:navigate_prev": ctrl-h
+"pane_group:add_right": ctrl-shift-|

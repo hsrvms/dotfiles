@@ -6,86 +6,85 @@
 // To see the default key bindings run `zed: Open Default Keymap`
 // from the command palette.
 [
-  {
-    "context": "Workspace",
-    "bindings": {
-      // "shift shift": "file_finder::Toggle",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      // "j k": ["workspace::SendKeystrokes", "escape"]
-    }
-  },
-  {
-    "context": "VimControl && !menu",
-    "bindings": {
-      // put key-bindings here if you want them to work in normal & visual mode
-      "shift-k": "editor::Hover",
-      "space space": "file_finder::Toggle",
-      "space c a": "editor::ToggleCodeActions",
-      "space c f": "editor::Format",
-      "space c r": "editor::Rename",
-      "space c d": "editor::GoToDiagnostic",
-      "space c x": "diagnostics::Deploy",
-      "space o": "tab_switcher::Toggle",
-      "space e": "workspace::ToggleLeftDock",
-      "space p": "outline::Toggle",
-      "space v": "editor::GoToDefinitionSplit",
-      "space s g": "pane::DeploySearch",
-      "space b d": "pane::CloseActiveItem",
-      "space b o": "pane::CloseInactiveItems",
-      "g r": "editor::FindAllReferences",
-      "g t": "editor::GoToTypeDefinition",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      // "ctrl-shift-'": "workspace::SaveWithoutFormat",
-      "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePreviousItem"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
-    "bindings": {
-      "p": ["vim::Paste", { "preserve_clipboard": true }]
-    }
-  },
-  {
-    "context": "vim_mode == visual && !menu",
-    "bindings": {
-      "shift-k": "editor::MoveLineUp",
-      "shift-j": "editor::MoveLineDown"
-      // visual, visual line & visual block modes
-    }
-  },
-  {
-    "context": "vim_mode == insert",
-    "bindings": {
-      "j j": "vim::NormalBefore" // remap jk in insert mode to escape.
-    }
-  },
-  {
-    "context": "terminal",
-    "bindings": {
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown"
-    }
-  },
-  {
-    "context": "EmptyPane || SharedScreen",
-    "bindings": {
-      // put key-bindings here (in addition to above) if you want them to
-      // work when no editor exists
-      "space space": "file_finder::Toggle"
-    }
-  }
+    {
+        "context": "Workspace",
+        "bindings": {
+            // "shift shift": "file_finder::Toggle",
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+        },
+    },
+    {
+        "context": "Editor",
+        "bindings": {
+            // "j k": ["workspace::SendKeystrokes", "escape"]
+        },
+    },
+    {
+        "context": "VimControl && !menu",
+        "bindings": {
+            // put key-bindings here if you want them to work in normal & visual mode
+            "shift-k": "editor::Hover",
+            "space space": "file_finder::Toggle",
+            "space c a": "editor::ToggleCodeActions",
+            "space c f": "editor::Format",
+            "space c r": "editor::Rename",
+            "space c d": "editor::GoToDiagnostic",
+            "space c x": "diagnostics::Deploy",
+            "space o": "tab_switcher::Toggle",
+            "space e": "workspace::ToggleLeftDock",
+            "space p": "outline::Toggle",
+            "space v": "editor::GoToDefinitionSplit",
+            "space s g": "pane::DeploySearch",
+            "space b d": "pane::CloseActiveItem",
+            "g r": "editor::FindAllReferences",
+            "g t": "editor::GoToTypeDefinition",
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+            // "ctrl-shift-'": "workspace::SaveWithoutFormat",
+            "shift-l": "pane::ActivateNextItem",
+            "shift-h": "pane::ActivatePreviousItem",
+        },
+    },
+    {
+        "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
+        "bindings": {
+            "p": ["vim::Paste", { "preserve_clipboard": true }],
+        },
+    },
+    {
+        "context": "vim_mode == visual && !menu",
+        "bindings": {
+            "shift-k": "editor::MoveLineUp",
+            "shift-j": "editor::MoveLineDown",
+            // visual, visual line & visual block modes
+        },
+    },
+    {
+        "context": "vim_mode == insert",
+        "bindings": {
+            "j j": "vim::NormalBefore", // remap jk in insert mode to escape.
+        },
+    },
+    {
+        "context": "terminal",
+        "bindings": {
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+        },
+    },
+    {
+        "context": "EmptyPane || SharedScreen",
+        "bindings": {
+            // put key-bindings here (in addition to above) if you want them to
+            // work when no editor exists
+            "space space": "file_finder::Toggle",
+        },
+    },
 ]
