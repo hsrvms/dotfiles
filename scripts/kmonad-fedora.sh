@@ -24,32 +24,24 @@ mkdir -p ~/.config/kmonad
 echo "Detecting keyboard device..."
 KEYBOARD_DEVICE=""
 
-# First, try to find the main keyboard device (one with 'kbd' handler)
-for device in /dev/input/event*; do
-    if udevadm info --query=property --name="$device" 2>/dev/null | grep -q "ID_INPUT_KEYBOARD=1"; then
-        device_num=$(basename "$device" | sed 's/event//')
-        if grep -q "kbd.*event${device_num}" /proc/bus/input/devices 2>/dev/null; then
-            KEYBOARD_DEVICE="$device"
-            echo "Found main keyboard device: $KEYBOARD_DEVICE (with kbd handler)"
-            break
-        fi
-    fi
-done
+# Look specifically for the internal keyboard name in the devices list
+# This matches 'AT Translated Set 2 keyboard' and extracts its event number
+KBD_EVENT=$(grep -E 'Name|Handlers' /proc/bus/input/devices | \
+    grep -A 1 "AT Translated Set 2 keyboard" | \
+    grep -oE 'event[0-9]+' | head -n 1)
 
-# If no main keyboard found, fall back to any keyboard device
-if [ -z "$KEYBOARD_DEVICE" ]; then
-    for device in /dev/input/event*; do
-        if udevadm info --query=property --name="$device" 2>/dev/null | grep -q "ID_INPUT_KEYBOARD=1"; then
-            KEYBOARD_DEVICE="$device"
-            echo "Found keyboard device: $KEYBOARD_DEVICE"
-            break
-        fi
-    done
+if [ -n "$KBD_EVENT" ]; then
+    KEYBOARD_DEVICE="/dev/input/$KBD_EVENT"
+    echo "Successfully found internal keyboard: $KEYBOARD_DEVICE"
+else
+    # Fallback to event2 if the name match fails for some reason
+    echo "Warning: Could not match by name, falling back to event2"
+    KEYBOARD_DEVICE="/dev/input/event2"
 fi
-
+# 3. Final Warning
 if [ -z "$KEYBOARD_DEVICE" ]; then
-    echo "Warning: Could not auto-detect keyboard device, using /dev/input/event3"
-    KEYBOARD_DEVICE="/dev/input/event3"
+    echo "Warning: Could not auto-detect keyboard, using /dev/input/event2 as default."
+    KEYBOARD_DEVICE="/dev/input/event2"
 fi
 
 # Create config file with detected keyboard device
