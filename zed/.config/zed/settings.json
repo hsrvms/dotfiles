@@ -50,6 +50,7 @@
         },
     ],
     "edit_predictions": {
+        "provider": "zed",
         "disabled_globs": [".env", "ozerpan_ercom_sync/api.py"],
     },
     "show_edit_predictions": false,
@@ -60,13 +61,10 @@
             "model": "claude-sonnet-4-5",
         },
     },
-    "features": {
-        "edit_prediction_provider": "zed",
-    },
     "theme": "Catppuccin Mocha",
     "icon_theme": "Catppuccin Mocha",
     "vim_mode": true,
-    "buffer_font_family": "Iosevka Nerd Font",
+    "buffer_font_family": "IosevkaTerm Nerd Font Mono",
     "buffer_font_size": 15,
     "vertical_scroll_margin": 10,
     "base_keymap": "VSCode",
@@ -104,12 +102,12 @@
     "buffer_font_features": { "calt": false },
     "buffer_font_weight": 300,
     "toolbar": {
-        "breadcrumbs": false,
+        "breadcrumbs": true,
         "quick_actions": false,
     },
     "current_line_highlight": "none",
     "terminal": {
-        "font_family": "Iosevka Nerd Font",
+        "font_family": "IosevkaTerm Nerd Font Mono",
         "font_size": 14,
         "line_height": {
             "custom": 1.4,
@@ -132,12 +130,13 @@
         "auto_fold_dirs": false,
         "entry_spacing": "standard",
     },
+    "format_on_save": "off",
     "languages": {
         "C": {
             "format_on_save": "off",
         },
         "CSharp": {
-            "format_on_save": "off",
+            "format_on_save": "on",
         },
         "JavaScript": {
             "format_on_save": "off",
@@ -159,7 +158,9 @@
                 },
             ],
         },
-        "Go": {},
+        "Go": {
+            "format_on_save": "on",
+        },
     },
     "lsp": {
         "gopls": {
@@ -173,6 +174,12 @@
                     "parameterNames": true,
                     "rangeVariableTypes": true,
                 },
+            },
+        },
+        "omnisharp": {
+            "binary": {
+                "path": "/path/to/OmniSharp",
+                "arguments": ["optional", "additional", "args", "-lsp"],
             },
         },
         "tailwindcss-language-server": {
@@ -203,7 +210,8 @@
                 "python": {
                     // "pythonPath": ".venv/bin/python",
                     "venvPath": ".",
-                    "venv": ".venv",
+                    // "venv": ".venv",
+                    "venv": "env",
                 },
             },
         },
