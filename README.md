@@ -62,3 +62,14 @@ sudo pacman -S xdg-desktop-portal xdg-desktop-portal-gtk
 
 # Cisco Packet Tracer Arch Installer
 https://aur.archlinux.org/packages/packettracer
+
+
+# Wazuh Agent Arch Config
+``` sh
+# 1. Update the configuration to point to your local Docker manager
+ sudo sed -i 's/MANAGER_IP/127.0.0.1/g' /var/ossec/etc/ossec.conf
+ # 2. Start the agent service
+ sudo systemctl restart wazuh-agent
+ # 3. Verify it is finally running without errors
+ systemctl status wazuh-agent
+ ```
