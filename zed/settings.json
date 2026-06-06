@@ -1,12 +1,12 @@
 {
 	"cli_default_open_behavior": "new_window",
- "collaboration_panel": {
-  "dock": "left"
- },
- "git_panel": {
-  "dock": "left"
- },
- "ssh_connections": [
+	"collaboration_panel": {
+		"dock": "left",
+	},
+	"git_panel": {
+		"dock": "left",
+	},
+	"ssh_connections": [
 		{
 			"host": "cs.laughing-space-eureka-grw7j5pv9j43pwvq.main",
 			"args": [],
@@ -38,7 +38,7 @@
 	"theme": {
 		"mode": "dark",
 		"light": "One Light",
-		"dark": "GitHub Dark Tritanopia",
+		"dark": "Ayu Dark",
 	},
 	"icon_theme": {
 		"mode": "dark",
@@ -46,25 +46,35 @@
 		"dark": "Material Icon Theme",
 	},
 	"theme_overrides": {
-		"GitHub Dark Tritanopia": {
-			// "background.appearance": "transparent",
-			// "background": "#00000095",
-			// "editor.background": "#1e1e2e95",
-			// "terminal.background": "#1e1e2e95",
-			// "editor.foreground": "#1e1e2e95",
-			// "editor.gutter.background": "#1e1e2e95",
-			// "panel.background": "#18182595",
-			// "element.background": "#00000090",
+		"Ayu Dark": {
+			"background": "#00000095",
+			"editor.background": "#00000095",
+			"terminal.background": "#00000095",
+			"editor.gutter.background": "#00000095",
+			"panel.background": "#00000095",
 			"tab_bar.background": "#11111b95",
-			"tab.inactive_background": "#1e1e2ef",
-			"tab.active_background": "#162121",
-			// "tab.active_background": "#1e1e2eff",
 			"border.variant": "#464b57ff",
-			// "border.transparent": "#00000000",
-			// "border.focused": "#47679eff",
-			// "status_bar.background": "#18182595",
-			// "modified.background": "#00000095",
-
+			"status_bar.background": "#00000095",
+			"title_bar.background": "#00000095",
+			"syntax": {
+				"comment": {
+					"font_style": "italic",
+				},
+				"comment.doc": {
+					"font_style": "italic",
+				},
+			},
+		},
+		"Catppuccin Mocha": {
+			"background": "#00000095",
+			"editor.background": "#00000095",
+			"terminal.background": "#00000095",
+			"editor.gutter.background": "#00000095",
+			"panel.background": "#00000095",
+			"tab_bar.background": "#11111b95",
+			"border.variant": "#464b57ff",
+			"status_bar.background": "#00000095",
+			"title_bar.background": "#00000095",
 			"syntax": {
 				"comment": {
 					"font_style": "italic",
@@ -114,7 +124,7 @@
 	},
 	"outline_panel": {
 		"dock": "left",
-  "default_width": 300,
+		"default_width": 300,
 		"indent_guides": {
 			"show": "never",
 		},
@@ -200,7 +210,7 @@
 	},
 	"agent": {
 		"dock": "right",
-  "default_profile": "ask",
+		"default_profile": "ask",
 		"default_model": {
 			"enable_thinking": true,
 			"provider": "openrouter",
