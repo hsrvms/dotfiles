@@ -131,6 +131,19 @@
         "vim::PushSneakBackward",
         {}
       ],
+      "ctrl-l": "search::ToggleSelection",
     },
   },
+  {
+    "context": "Pane",
+    "unbind": {
+      "ctrl-alt-shift-l": "search::ToggleSelection"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "alt-/": "search::ToggleSelection"
+    }
+  }
 ]
