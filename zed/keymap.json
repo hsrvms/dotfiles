@@ -1,149 +1,142 @@
 [
-  {
-    "context": "Workspace",
-    "bindings": {
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-q": "pane::CloseActiveItem",
-      "ctrl-t": "terminal_panel::Toggle",
-    },
-  },
-  {
-    "context": "Editor",
-    "bindings": {},
-  },
-  {
-    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
-    "bindings": {
-      "space": null,
-      "shift-k": "editor::Hover",
-      "space space": "file_finder::Toggle",
-      "space c a": "editor::ToggleCodeActions",
-      "space c f": "editor::Format",
-      "space c r": "editor::Rename",
-      "space c d": "editor::GoToDiagnostic",
-      "space c x": "diagnostics::Deploy",
-      "space o": "tab_switcher::Toggle",
-      "space e": "vim::ToggleProjectPanelFocus",
-      "space p": "outline::Toggle",
-      "space v": "editor::GoToDefinitionSplit",
-      "space s g": "pane::DeploySearch",
-      "space b d": "pane::CloseActiveItem",
-      "space R": "editor::RevealInFileManager",
-      "space f": "file_finder::Toggle",
-      "space b": "tab_switcher::ToggleAll",
-      "g d": "editor::GoToDefinition",
-      "g D": "editor::GoToDefinitionSplit",
-      "g i": "editor::GoToImplementation",
-      "g I": "editor::GoToImplementationSplit",
-      "g t": "editor::GoToTypeDefinition",
-      "g T": "editor::GoToTypeDefinitionSplit",
-      "g r": "editor::FindAllReferences",
-      "] d": "editor::GoToDiagnostic",
-      "[ d": "editor::GoToPreviousDiagnostic",
-      "] h": "editor::GoToHunk",
-      "[ h": "editor::GoToPreviousHunk",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-t": "terminal_panel::Toggle",
-      "ctrl-w": null,
-      "alt-up": "vim::ResizePaneUp",
-      "alt-right": "vim::ResizePaneRight",
-      "alt-down": "vim::ResizePaneDown",
-      "alt-left": "vim::ResizePaneLeft",
-      "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePreviousItem",
-      "shift-q": "pane::CloseActiveItem",
-    },
-  },
-  {
-    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
-    "bindings": {
-      "p": [
-        "vim::Paste",
-        {
-          "preserve_clipboard": true
-        }
-      ],
-    },
-  },
-  {
-    "context": "vim_mode == visual && !menu",
-    "bindings": {
-      "shift-k": "editor::MoveLineUp",
-      "shift-j": "editor::MoveLineDown",
-    },
-  },
-  {
-    "context": "vim_mode == insert",
-    "bindings": {
-      "j j": "vim::NormalBefore",
-    },
-  },
-  {
-    "context": "terminal",
-    "bindings": {
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-q": "pane::CloseActiveItem",
-    },
-  },
-  {
-    "context": "EmptyPane || SharedScreen",
-    "bindings": {
-      "space space": "file_finder::Toggle",
-    },
-  },
-  {
-    "context": "ProjectPanel && not_editing",
-    "bindings": {
-      "space": null,
-      "a": "project_panel::NewFile",
-      "A": "project_panel::NewDirectory",
-      "r": "project_panel::Rename",
-      "R": "project_panel::RevealInFileManager",
-      "d": "project_panel::Delete",
-      "x": "project_panel::Cut",
-      "c": "project_panel::Copy",
-      "p": "project_panel::Paste",
-      "q": "workspace::ToggleRightDock",
-      "space e": "workspace::ToggleRightDock",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-    },
-  },
-  {
-    "context": "vim_mode == normal || vim_mode == visual",
-    "bindings": {
-      "s": [
-        "vim::PushSneak",
-        {}
-      ],
-      "S": [
-        "vim::PushSneakBackward",
-        {}
-      ],
-      "ctrl-l": "search::ToggleSelection",
-    },
-  },
-  {
-    "context": "Pane",
-    "unbind": {
-      "ctrl-alt-shift-l": "search::ToggleSelection"
-    }
-  },
-  {
-    "context": "BufferSearchBar",
-    "bindings": {
-      "alt-/": "search::ToggleSelection"
-    }
-  }
+	{
+		"context": "Workspace",
+		"bindings": {
+			"ctrl-h": "workspace::ActivatePaneLeft",
+			"ctrl-l": "workspace::ActivatePaneRight",
+			"ctrl-k": "workspace::ActivatePaneUp",
+			"ctrl-j": "workspace::ActivatePaneDown",
+			"ctrl-q": "pane::CloseActiveItem",
+			"ctrl-t": "terminal_panel::Toggle",
+		},
+	},
+	{
+		"context": "Editor",
+		"bindings": {},
+	},
+	{
+		"context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+		"bindings": {
+			"space": null,
+			"shift-k": "editor::Hover",
+			"space space": "file_finder::Toggle",
+			"space c a": "editor::ToggleCodeActions",
+			"space c f": "editor::Format",
+			"space c r": "editor::Rename",
+			"space c d": "editor::GoToDiagnostic",
+			"space c x": "diagnostics::Deploy",
+			"space o": "tab_switcher::Toggle",
+			"space e": "vim::ToggleProjectPanelFocus",
+			"space p": "outline::Toggle",
+			"space v": "editor::GoToDefinitionSplit",
+			"space s g": "pane::DeploySearch",
+			"space b d": "pane::CloseActiveItem",
+			"space R": "editor::RevealInFileManager",
+			"space f": "file_finder::Toggle",
+			"space b": "tab_switcher::ToggleAll",
+			"g d": "editor::GoToDefinition",
+			"g D": "editor::GoToDefinitionSplit",
+			"g i": "editor::GoToImplementation",
+			"g I": "editor::GoToImplementationSplit",
+			"g t": "editor::GoToTypeDefinition",
+			"g T": "editor::GoToTypeDefinitionSplit",
+			"g r": "editor::FindAllReferences",
+			"] d": "editor::GoToDiagnostic",
+			"[ d": "editor::GoToPreviousDiagnostic",
+			"] h": "editor::GoToHunk",
+			"[ h": "editor::GoToPreviousHunk",
+			"ctrl-h": "workspace::ActivatePaneLeft",
+			"ctrl-l": "workspace::ActivatePaneRight",
+			"ctrl-k": "workspace::ActivatePaneUp",
+			"ctrl-j": "workspace::ActivatePaneDown",
+			"ctrl-t": "terminal_panel::Toggle",
+			"ctrl-w": null,
+			"alt-up": "vim::ResizePaneUp",
+			"alt-right": "vim::ResizePaneRight",
+			"alt-down": "vim::ResizePaneDown",
+			"alt-left": "vim::ResizePaneLeft",
+			"shift-l": "pane::ActivateNextItem",
+			"shift-h": "pane::ActivatePreviousItem",
+			"shift-q": "pane::CloseActiveItem",
+		},
+	},
+	{
+		"context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
+		"bindings": {
+			"p": [
+				"vim::Paste",
+				{
+					"preserve_clipboard": true,
+				},
+			],
+		},
+	},
+	{
+		"context": "vim_mode == visual && !menu",
+		"bindings": {
+			"shift-k": "editor::MoveLineUp",
+			"shift-j": "editor::MoveLineDown",
+		},
+	},
+	{
+		"context": "vim_mode == insert",
+		"bindings": {
+			"j j": "vim::NormalBefore",
+		},
+	},
+	{
+		"context": "terminal",
+		"bindings": {
+			"ctrl-h": "workspace::ActivatePaneLeft",
+			"ctrl-l": "workspace::ActivatePaneRight",
+			"ctrl-k": "workspace::ActivatePaneUp",
+			"ctrl-j": "workspace::ActivatePaneDown",
+			"ctrl-q": "pane::CloseActiveItem",
+		},
+	},
+	{
+		"context": "EmptyPane || SharedScreen",
+		"bindings": {
+			"space space": "file_finder::Toggle",
+		},
+	},
+	{
+		"context": "ProjectPanel && not_editing",
+		"bindings": {
+			"space": null,
+			"a": "project_panel::NewFile",
+			"A": "project_panel::NewDirectory",
+			"r": "project_panel::Rename",
+			"R": "project_panel::RevealInFileManager",
+			"d": "project_panel::Delete",
+			"x": "project_panel::Cut",
+			"c": "project_panel::Copy",
+			"p": "project_panel::Paste",
+			"q": "workspace::ToggleRightDock",
+			"space e": "workspace::ToggleRightDock",
+			"ctrl-h": "workspace::ActivatePaneLeft",
+			"ctrl-l": "workspace::ActivatePaneRight",
+			"ctrl-k": "workspace::ActivatePaneUp",
+			"ctrl-j": "workspace::ActivatePaneDown",
+		},
+	},
+	{
+		"context": "vim_mode == normal || vim_mode == visual",
+		"bindings": {
+			"s": ["vim::PushSneak", {}],
+			"S": ["vim::PushSneakBackward", {}],
+		},
+	},
+	{
+		"context": "Pane",
+		"unbind": {
+			"ctrl-alt-shift-l": "search::ToggleSelection",
+		},
+	},
+	{
+		"context": "BufferSearchBar",
+		"bindings": {
+			"alt-/": "search::ToggleSelection",
+		},
+	},
 ]
