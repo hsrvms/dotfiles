@@ -56,6 +56,7 @@
 			"border.variant": "#464b57ff",
 			"status_bar.background": "#00000095",
 			"title_bar.background": "#00000095",
+			"toolbar.background": "#00000095",
 			"syntax": {
 				"comment": {
 					"font_style": "italic",
@@ -86,13 +87,13 @@
 		},
 	},
 	"title_bar": {
-		"show_onboarding_banner": false,
+		"show_onboarding_banner": true,
 		"show_project_items": true,
 		"show_branch_name": true,
 		"show_user_menu": false,
 	},
 	"tab_bar": {
-		"show": true,
+		"show": false,
 		"show_nav_history_buttons": false,
 		"show_tab_bar_buttons": false,
 	},
@@ -102,6 +103,7 @@
 	},
 	"status_bar": {
 		"experimental.show": true,
+		"show_active_file": true
 	},
 	"project_panel": {
 		"hide_hidden": false,
@@ -234,8 +236,7 @@
 			"custom": 1.4,
 		},
 		"blinking": "off",
-		"default_height": 1500,
-		"default_width": 750,
+		"default_height": 1080,
 		"dock": "bottom",
 		"button": false,
 		"flexible": true,
