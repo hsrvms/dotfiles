@@ -26,7 +26,7 @@
 			"space c d": "editor::GoToDiagnostic",
 			"space c x": "diagnostics::Deploy",
 			"space o": "tab_switcher::Toggle",
-			"space e": "vim::ToggleProjectPanelFocus",
+			"space e": "workspace::ToggleRightDock",
 			"space p": "outline::Toggle",
 			"space v": "editor::GoToDefinitionSplit",
 			"space s g": "pane::DeploySearch",
@@ -98,6 +98,8 @@
 		"context": "EmptyPane || SharedScreen",
 		"bindings": {
 			"space space": "file_finder::Toggle",
+			"space e": "workspace::ToggleRightDock",
+			"space s g": "pane::DeploySearch",
 		},
 	},
 	{

@@ -1,0 +1,20 @@
+layout {
+    pane size=1 borderless=true {
+      plugin location="compact-bar"
+    }
+	pane split_direction="vertical" {
+		pane
+		devcontainer { args "up"; }
+	}
+	pane split_direction="vertical" {
+		pane
+		devcontainer { args "exec" "bash"; }
+	}
+	pane_template name="devcontainer" {
+		command "devcontainer"
+		start_suspended true
+	}
+	pane size=1 borderless=true {
+		plugin location="zellij:status-bar"
+	}
+}
