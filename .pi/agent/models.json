@@ -1,0 +1,26 @@
+
+{
+	"providers": {
+		"alibaba": {
+			"baseUrl": "https://ws-o846nhi5b0f0qepq.eu-central-1.maas.aliyuncs.com/compatible-mode/v1",
+			"api": "openai-completions",
+			"apiKey": "sk-ws-H.DYMMH.PLB4.MEYCIQC_Ab57KxrljofYielRIwtMZP_HKBmosDWG4gTtJgAxhwIhAKqmg7Qx56IQYndJZqFQlU3_f7kPquc--Uv9rQ8vw8YC",
+			"compat": {
+				"supportsDeveloperRole": false,
+				"supportsReasoningEffort": false,
+				"thinkingFormat": "qwen"
+			},
+			"models": [
+				{
+					"id": "qwen3.7-max",
+					"name": "Qwen 3.7 Max",
+					"reasoning": true,
+					"input": ["text"],
+					"contextWindow": 262144,
+					"maxTokens": 65536,
+					"cost": { "input": 1.65, "output": 4.95, "cacheRead": 0, "cacheWrite": 0 }
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+  "name": "pi-web-search",
+  "version": "1.0.0",
+  "description": "Web search and page fetching for pi",
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  },
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}
