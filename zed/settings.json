@@ -1,5 +1,11 @@
 {
-	"cli_default_open_behavior": "new_window",
+	"context_server_timeout": 80,
+ "language_models": {
+  "ollama": {
+   "api_url": "http://100.91.19.12:11434"
+  }
+ },
+ "cli_default_open_behavior": "new_window",
 	"collaboration_panel": {
 		"dock": "left",
 	},
@@ -8,21 +14,14 @@
 	},
 	"ssh_connections": [
 		{
-			"host": "cs.laughing-space-eureka-grw7j5pv9j43pwvq.main",
+			"host": "um870",
 			"args": [],
 			"projects": [
 				{
-					"paths": ["/workspace/development/frappe-bench/apps/cargo/./"],
+					"paths": ["/home/um870"],
 				},
-			],
-			"nickname": "Barket Salah",
-		},
-		{
-			"host": "cs.refactored-disco-xpqv7947rxq2v5.cs-culinary",
-			"args": [],
-			"projects": [
 				{
-					"paths": ["/workspace/development/frappe-bench/apps/marketplace"],
+					"paths": ["/home/um870/repo/local-ai-packaged"],
 				},
 			],
 		},
@@ -93,7 +92,7 @@
 		"show_user_menu": false,
 	},
 	"tab_bar": {
-		"show": false,
+		"show": true,
 		"show_nav_history_buttons": false,
 		"show_tab_bar_buttons": false,
 	},
@@ -103,7 +102,7 @@
 	},
 	"status_bar": {
 		"experimental.show": true,
-		"show_active_file": true
+		"show_active_file": true,
 	},
 	"project_panel": {
 		"hide_hidden": false,
@@ -211,12 +210,16 @@
 		"mode": "subtle",
 	},
 	"agent": {
-		"dock": "right",
-		"default_profile": "ask",
+		"show_turn_stats": true,
+  "thinking_display": "always_expanded",
+  "play_sound_when_agent_done": "always",
+  "notify_when_agent_waiting": "all_screens",
+  "dock": "right",
+		"default_profile": "write",
 		"default_model": {
 			"enable_thinking": true,
 			"provider": "openrouter",
-			"model": "google/gemini-3-flash-preview",
+			"model": "qwen/qwen3.6-27b",
 		},
 	},
 	"base_keymap": "VSCode",

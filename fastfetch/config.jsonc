@@ -1,10 +1,12 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
   "logo": {
-    // "source": "~/.config/fastfetch/ascii.txt",
+    // "source": "~/.config/fastfetch/CatScratch/logo.png",
+    "type": "none",
     "source": "linux",
     "padding": {
-      "top": 2,
+      "top": 1,
       "left": 2,
       "right": 4
     },
@@ -89,13 +91,6 @@
       "key": "󰋊  Disk",
       "keyColor": "magenta",
       "folders": "/"
-    },
-    "break",
-    {
-      "type": "command",
-      "key": "󰎆  Play",
-      "keyColor": "green",
-      "text": "playerctl metadata --format '{{ artist }} - {{ title }}' 2>/dev/null || echo 'Not playing'"
     },
     "break",
     {

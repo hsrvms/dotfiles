@@ -73,3 +73,11 @@ https://aur.archlinux.org/packages/packettracer
  # 3. Verify it is finally running without errors
  systemctl status wazuh-agent
  ```
+
+
+# WireGuard client connection
+install wireguard-tools
+
+nmcli connection import type wireguard file ~/Downloads/Prestige14.conf
+
+nmcli connection up Prestige14

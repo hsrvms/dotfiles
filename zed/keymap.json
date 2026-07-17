@@ -99,13 +99,13 @@
 		"bindings": {
 			"space space": "file_finder::Toggle",
 			"space e": "workspace::ToggleRightDock",
-			"space s g": "pane::DeploySearch",
-		},
+			"space s g": "pane::DeploySearch", },
 	},
 	{
 		"context": "ProjectPanel && not_editing",
 		"bindings": {
 			"space": null,
+			"space space": "file_finder::Toggle",
 			"a": "project_panel::NewFile",
 			"A": "project_panel::NewDirectory",
 			"r": "project_panel::Rename",
