@@ -1,8 +1,8 @@
 {
   "theme": "dark",
   "approvalMode": "ask",
-  "defaultProvider": "alibaba",
-  "defaultModel": "qwen3.7-max",
+  "defaultProvider": "tokenrouter",
+  "defaultModel": "z-ai/glm-5.2-free",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": false,
   "compaction": {

@@ -18,8 +18,7 @@ Do NOT leave placeholder text. Every file path must exist. Every pattern cited m
 
 ## Success Criteria
 
-- [ ] {Specific, testable criterion}
-- [ ] {Specific, testable criterion}
+- [ ] {Specific, testable criterion — verifiable by a test at a seam}
 - [ ] All validation passes
 - [ ] No regressions in existing tests
 
@@ -56,29 +55,38 @@ Include file paths and line numbers.}
 - **{Decision 1}**: {Rationale}
 - **{Decision 2}**: {Rationale}
 
+## Seam Map
+
+Every task is a vertical slice at a seam. List all seams here, then cover each in a task below.
+
+| Seam | Behavior Tested | Covered By Task |
+|------|-----------------|-----------------|
+| `{interface or public function}` | {what it does} | Task {N} |
+
 ## Task List
 
-Execute in order. Each task is atomic and independently verifiable.
+Execute in order. Each task is a TDD vertical slice: one seam, one failing test, one minimal
+implementation. Tasks are ordered by dependency (types/models → repository → service → handler).
 
-### Task 1: {ACTION} `{file path}`
+### Task 1: {brief title}
 
-**Action**: CREATE / UPDATE
-**Details**: {Exact changes — specific enough for an agent with no context}
+**Seam**: {public interface or behavior being tested}
+**Test**: {what the test verifies — specific assertion, independent expected value}
+**Implementation**: {minimal code to pass — specific enough to implement without guessing}
+**Files**:
+- `{path}` — CREATE / UPDATE
 **Pattern**: Follow `{source file}:{lines}`
 **Validate**: `{command to verify this task}`
 
-### Task 2: {ACTION} `{file path}`
+### Task 2: {brief title}
 
-**Action**: CREATE / UPDATE
-**Details**: {Exact changes}
+**Seam**: {public interface or behavior being tested}
+**Test**: {what the test verifies}
+**Implementation**: {minimal code to pass}
+**Files**:
+- `{path}` — CREATE / UPDATE
 **Pattern**: Follow `{source file}:{lines}`
 **Validate**: `{command to verify this task}`
-
-## Testing Strategy
-
-| Test File | Test Cases | Validates |
-|-----------|-----------|-----------|
-| `{path}` | {cases} | {what it validates} |
 
 ## Validation Commands
 
@@ -101,40 +109,41 @@ Execute in order. Each task is atomic and independently verifiable.
 ### Task Granularity
 
 Each task should be small enough to:
-- Implement in one focused session
-- Validate independently
+- Write a failing test, implement, and validate in one focused session
 - Commit as a single logical unit
 
 If a task requires changing more than 3-4 files, split it.
 
 ### Task Ordering
 
-Respect dependencies:
-- Types/models before handlers
-- Repository before service
-- Service before handler
-- Tests alongside (not after) the code they test
+Respect dependencies — types/models → repository → service → handler.
+Each task is a complete vertical slice (test + implementation), so a task can be run,
+tested, and committed independently of tasks below it.
 
-### Details Section
+### Task Specificity
 
-The Details section must be specific enough that an agent with NO prior context
-could implement it correctly. Include:
-- Exact function signatures
-- Field names and types
-- Error handling behavior
-- Edge cases to handle
+Each task's **Test** and **Implementation** fields must be specific enough that an agent
+with NO prior context could write the test and implement the code correctly. Include:
+- Exact function signatures and field names
+- The specific assertion and its independent expected value
+- Error handling behavior and edge cases
 
 Bad:
 ```
-Add a function to handle user creation.
+**Test**: Test user creation
+**Implementation**: Add a function to handle user creation.
 ```
 
 Good:
 ```
-Add `CreateUser(ctx context.Context, req CreateUserRequest) (*User, error)` that:
-1. Validates req.Email is non-empty and matches email regex
-2. Checks repository for existing user with same email (return ErrUserExists if found)
-3. Hashes password with bcrypt (cost 12)
-4. Calls repository.Create with the new user
-5. Returns the created user with generated ID and timestamps
+**Seam**: `CreateUser(ctx, req) (*User, error)`
+**Test**: CreateUser with valid inputs returns a User with generated ID and timestamps;
+       CreateUser with duplicate email returns ErrUserExists.
+       Expected values: name="Alice", status=Active (independent literals).
+**Implementation**:
+1. Validate req.Email is non-empty and matches email regex
+2. Check repository for existing user with same email (return ErrUserExists if found)
+3. Hash password with bcrypt (cost 12)
+4. Call repository.Create with the new user
+5. Return the created user with generated ID and timestamps
 ```

@@ -1,10 +1,86 @@
 
 {
 	"providers": {
+		"tokenrouter": {
+			"baseUrl": "https://api.tokenrouter.com/v1",
+			"api": "openai-completions",
+			"apiKey": "!$HOME/.pi/agent/get-secret.sh TOKENROUTER_API_KEY",
+			"compat": {
+				"supportsDeveloperRole": false,
+				"supportsReasoningEffort": false
+			},
+			"models": [
+				{
+					"id": "moonshotai/kimi-k3",
+					"name": "Kimi K3 (TokenRouter)",
+					"reasoning": true,
+					"input": ["text"],
+					"contextWindow": 262144,
+					"maxTokens": 65536
+				},
+				{
+					"id": "anthropic:claude-3-7-sonnet-latest",
+					"name": "Claude 3.7 Sonnet (TokenRouter)",
+					"reasoning": false,
+					"input": ["text", "image"],
+					"contextWindow": 200000,
+					"maxTokens": 16384
+				},
+				{
+					"id": "openai:gpt-4o",
+					"name": "GPT-4o (TokenRouter)",
+					"reasoning": false,
+					"input": ["text", "image"],
+					"contextWindow": 128000,
+					"maxTokens": 16384
+				},
+				{
+					"id": "z-ai/glm-5.2",
+					"name": "GLM 5.2 (TokenRouter)",
+					"reasoning": false,
+					"input": ["text", "image"],
+					"contextWindow": 1000000,
+					"maxTokens": 65536
+				},
+				{
+					"id": "z-ai/glm-5.2-free",
+					"name": "GLM 5.2 Free (TokenRouter)",
+					"reasoning": false,
+					"input": ["text", "image"],
+					"contextWindow": 1000000,
+					"maxTokens": 65536,
+					"cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+				},
+				{
+					"id": "x-ai/grok-4.5",
+					"name": "Grok 4.5 (TokenRouter)",
+					"reasoning": false,
+					"input": ["text", "image"],
+					"contextWindow": 256000,
+					"maxTokens": 32768
+				},
+				{
+					"id": "MiniMax-M3",
+					"name": "MiniMax M3 (TokenRouter)",
+					"reasoning": false,
+					"input": ["text"],
+					"contextWindow": 200000,
+					"maxTokens": 16384
+				},
+				{
+					"id": "deepseek/deepseek-v4-pro",
+					"name": "DeepSeek V4 Pro (TokenRouter)",
+					"reasoning": false,
+					"input": ["text"],
+					"contextWindow": 128000,
+					"maxTokens": 65536
+				}
+			]
+		},
 		"alibaba": {
 			"baseUrl": "https://ws-o846nhi5b0f0qepq.eu-central-1.maas.aliyuncs.com/compatible-mode/v1",
 			"api": "openai-completions",
-			"apiKey": "sk-ws-H.DYMMH.PLB4.MEYCIQC_Ab57KxrljofYielRIwtMZP_HKBmosDWG4gTtJgAxhwIhAKqmg7Qx56IQYndJZqFQlU3_f7kPquc--Uv9rQ8vw8YC",
+			"apiKey": "!$HOME/.pi/agent/get-secret.sh ALIBABA_API_KEY",
 			"compat": {
 				"supportsDeveloperRole": false,
 				"supportsReasoningEffort": false,

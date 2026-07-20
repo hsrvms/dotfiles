@@ -1,12 +1,11 @@
 ---
 name: piv-loop
 description: >
-  Guided Plan-Implement-Validate (PIV) development loop with human-in-the-loop review.
-  Use when the user says "piv", "piv loop", "plan implement validate", "guided development",
-  "structured development", "build a feature", or "develop with review".
+  Guided Plan-Implement-Validate (PIV) development loop with test-driven implementation
+  and human-in-the-loop review. Use when the user says "piv", "piv loop", "plan implement
+  validate", "guided development", "structured development", or "build a feature".
   NOT for: quick one-off changes, bug fixes, or autonomous implementation without planning.
-  The PIV loop works best for features, refactors, or bug fixes that benefit from upfront
-  planning and iterative review. Requires a project with git initialized.
+  Requires a project with git initialized.
 ---
 
 # PIV Loop — Plan · Implement · Validate
@@ -25,7 +24,7 @@ EXPLORE → PLAN → IMPLEMENT → VALIDATE → FINALIZE
 
 1. **EXPLORE** — Iterative conversation to deeply understand what to build
 2. **PLAN** — Create a structured implementation plan, iterate until approved
-3. **IMPLEMENT** — Autonomous task-by-task coding from the plan
+3. **IMPLEMENT** — Test-driven red → green loop, task-by-task from the plan
 4. **VALIDATE** — Code review + iterative human feedback and fixes
 5. **FINALIZE** — Push, create PR, generate summary
 
@@ -97,11 +96,16 @@ fi
    Based on what exists:
    - {approach 1 — extend existing X}
    - {approach 2 — alternative}
+
+   ## Testing Seams
+
+   - {seam}: {behavior to verify at this public boundary}
    ```
 
 4. **Ask 4-6 targeted questions** focused on decisions, not information gathering:
    - Scope boundaries, architecture preferences, tech decisions
-   - Constraints, extension vs. fresh build, testing expectations
+   - Constraints, extension vs. fresh build
+   - Which seams matter most — where should tests verify behavior
    - Reference actual code you found — don't ask generic questions
 
 5. **Loop**: Process user responses, do targeted research, refine understanding.
@@ -126,7 +130,7 @@ fi
    - `{file}` — {what changes and why}
 
    ### Success Criteria
-   - [ ] {specific, testable criterion}
+   - [ ] {specific, testable criterion — verifiable by a test at a seam}
    - [ ] All validation passes
 
    ### Key Risks
@@ -140,7 +144,8 @@ Do NOT proceed unless the user explicitly signals readiness.
 
 ## Phase 2: PLAN
 
-**Goal**: Create a structured, actionable implementation plan.
+**Goal**: Create a structured, test-driven implementation plan. Every task is a vertical
+slice: one seam, one test, one minimal implementation.
 
 Read the detailed plan template: [references/plan-template.md](references/plan-template.md)
 
@@ -151,6 +156,8 @@ Read the detailed plan template: [references/plan-template.md](references/plan-t
 
 2. **Write the plan** to `.piv/plan.md` using the template above.
    Every section must be filled with specific, verified information.
+   Each task in the plan is a TDD vertical slice: it specifies the seam to test at,
+   what the failing test will verify, and the minimal implementation to pass it.
 
 3. **Present the plan summary**:
 
@@ -179,30 +186,47 @@ Read the detailed plan template: [references/plan-template.md](references/plan-t
 
 ## Phase 3: IMPLEMENT
 
-**Goal**: Execute the plan task-by-task with validation between each task.
+**Goal**: Execute the plan using the red → green loop. Every task is a vertical slice:
+failing test → minimal implementation → commit. No horizontal slicing.
 
-**Golden Rule**: If validation fails, fix it before committing. Never commit broken code.
+**Golden Rules**:
+- Never commit broken code.
+- Refactoring belongs to Phase 4 (VALIDATE), not here. The loop is red → green → commit.
+- For test quality guidance (anti-patterns, mocking, what a good test is), read the
+  TDD skill: `/home/hsrvms/.pi/agent/skills/tdd/SKILL.md`, with examples in
+  `/home/hsrvms/.pi/agent/skills/tdd/tests.md` and mocking at
+  `/home/hsrvms/.pi/agent/skills/tdd/mocking.md`.
 
 **Process**:
 
-For each task in the plan (identified by `### Task N:` headers):
+For each task in the plan (each a vertical slice, identified by `### Task N:` headers):
 
 1. **Announce the task**:
 
    ```
    -- Task {N} of {total} -----------------------------------------------
-   Action: {CREATE / UPDATE}
-   File: {file path}
+   Seam: {public behavior under test}
+   Files: {files created or changed}
    ------------------------------------------------------------------------
    ```
 
-2. **Implement**: Read the file, make changes following the plan exactly.
-   Type-check after each file change.
+2. **RED — Write the failing test**:
+   - Write a test at the task's seam that verifies the behavior the plan specifies.
+   - Test behavior through public interfaces only — never internal details.
+   - Expected values must come from an independent source (known-good literal, spec),
+     never recomputed the way the implementation will compute them.
+   - Run the test. It must fail for the right reason (missing behavior, not a syntax error).
+     If it passes, the test is wrong — fix it before proceeding.
 
-3. **Validate**: Run the project's validation commands (type check, lint, test, format).
+3. **GREEN — Implement minimal code**:
+   - Write only enough code to make the failing test pass.
+   - Do not anticipate future tasks or add speculative features.
+   - Run the test. It must pass. Run the full test suite — no regressions.
+
+4. **Validate**: Run full validation (type check, lint, format, all tests).
    If validation fails: fix and re-run (up to 3 attempts).
 
-4. **Commit**: Stage only the files changed for this task — never `git add -A` or `git add .`.
+5. **Commit**: Stage only the files changed for this task — never `git add -A` or `git add .`.
    List files explicitly:
 
    ```bash
@@ -214,17 +238,18 @@ For each task in the plan (identified by `### Task N:` headers):
 
    Never stage: `.piv/`, `*.scratch.md`, `*.tmp.md`, review files, or temporary artifacts.
 
-5. **Track progress** in `.piv/progress.txt`:
+6. **Track progress** in `.piv/progress.txt`:
 
    ```
    ## Task {N}: {title} — COMPLETED
    Date: {ISO date}
+   Seam: {what was tested}
    Files: {list}
    Commit: {short hash}
    ---
    ```
 
-6. **After all tasks are done**, run full validation one more time.
+7. **After all tasks are done**, run full validation one more time.
 
 **Exit**: All tasks completed and validation passes.
 
@@ -250,12 +275,19 @@ For each task in the plan (identified by `### Task N:` headers):
 
 3. **Check each file**: quality, security, patterns, conventions compliance.
 
-4. **Run full validation**.
+4. **Check test quality**:
+   - Tests verify behavior at seams, not implementation details
+   - No tautological assertions (expected values independent of implementation)
+   - No mocked internal collaborators
+   - Each test reads like a specification
 
-5. **Fix obvious issues** (type errors, lint warnings, missing imports, formatting).
+5. **Run full validation**.
+
+6. **Fix obvious issues** (type errors, lint warnings, missing imports, formatting).
+   This is where refactoring happens — the loop in Phase 3 was red → green only.
    Stage only fixed files. Commit if changes were made.
 
-6. **Present the review**:
+7. **Present the review**:
 
    ```
    ## Code Review
