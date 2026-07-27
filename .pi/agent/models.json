@@ -72,7 +72,7 @@
 					"name": "DeepSeek V4 Pro (TokenRouter)",
 					"reasoning": false,
 					"input": ["text"],
-					"contextWindow": 128000,
+					"contextWindow": 262144,
 					"maxTokens": 65536
 				}
 			]

@@ -2,8 +2,8 @@
   "theme": "dark",
   "approvalMode": "ask",
   "defaultProvider": "tokenrouter",
-  "defaultModel": "z-ai/glm-5.2-free",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "deepseek/deepseek-v4-pro",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "compaction": {
     "enabled": true,
@@ -14,5 +14,5 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "0.80.7"
+  "lastChangelogVersion": "0.81.1"
 }

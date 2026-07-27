@@ -239,7 +239,7 @@
 			"custom": 1.4,
 		},
 		"blinking": "off",
-		"default_height": 1080,
+		"default_height": 900,
 		"dock": "bottom",
 		"button": false,
 		"flexible": true,
