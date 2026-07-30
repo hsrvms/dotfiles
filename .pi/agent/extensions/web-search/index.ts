@@ -5,8 +5,8 @@
  *   - web_search: Search the web via Tavily API
  *   - web_fetch:  Fetch a URL and extract readable text content
  *
- * Requires: TAVILY_API_KEY environment variable (https://tavily.com)
- *   Free tier: 1,000 searches/month
+ * Requires: TAVILY_API_KEY in ~/.pi/agent/.env or as an environment variable.
+ *   Get one at https://tavily.com — free tier: 1,000 searches/month.
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
@@ -19,6 +19,9 @@ import {
 import { StringEnum } from "@earendil-works/pi-ai";
 import { Text } from "@earendil-works/pi-tui";
 import { Type } from "typebox";
+import { readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
 
 // ─── Tavily Types ────────────────────────────────────────────────────────────
 
@@ -34,11 +37,29 @@ interface TavilySearchResponse {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
+function readEnvFile(): Record<string, string> {
+  const envPath = join(homedir(), ".pi", "agent", ".env");
+  const vars: Record<string, string> = {};
+  try {
+    const content = readFileSync(envPath, "utf-8");
+    for (const line of content.split("\n")) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eq = trimmed.indexOf("=");
+      if (eq === -1) continue;
+      vars[trimmed.slice(0, eq)] = trimmed.slice(eq + 1);
+    }
+  } catch {
+    // .env file not found or unreadable; fall through
+  }
+  return vars;
+}
+
 function getApiKey(): string {
-  const key = process.env.TAVILY_API_KEY;
+  const key = process.env.TAVILY_API_KEY ?? readEnvFile()["TAVILY_API_KEY"];
   if (!key) {
     throw new Error(
-      "TAVILY_API_KEY not set. Get one at https://tavily.com and export TAVILY_API_KEY=..."
+      "TAVILY_API_KEY not set. Add it to ~/.pi/agent/.env or export TAVILY_API_KEY=..."
     );
   }
   return key;

@@ -14,5 +14,6 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "0.81.1"
+  "lastChangelogVersion": "0.82.1",
+  "externalEditor": "vim"
 }
