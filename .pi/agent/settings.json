@@ -3,7 +3,7 @@
   "approvalMode": "ask",
   "defaultProvider": "tokenrouter",
   "defaultModel": "deepseek/deepseek-v4-pro",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": false,
   "compaction": {
     "enabled": true,

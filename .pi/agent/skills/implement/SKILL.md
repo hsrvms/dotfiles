@@ -12,13 +12,19 @@ Read the spec, tickets, or user description. If a `CONTEXT.md` exists, read it f
 
 **Done when:** you can restate every requirement and the user confirms your understanding.
 
-## 2. Plan seams
+## 2. Create a branch
+
+Create and check out a new branch named after the spec or ticket (e.g. `feat/<ticket>-<slug>`).
+
+**Done when:** `git branch --show-current` reports the new branch.
+
+## 3. Plan seams
 
 Identify the seams where behaviour will be tested (see the `tdd` skill). Confirm them with the user before any implementation.
 
 **Done when:** user has confirmed the seam list.
 
-## 3. Implement in slices
+## 4. Implement in slices
 
 Work one seam at a time. For each seam, use the `tdd` skill: write the failing test, then the minimal implementation to pass it.
 
@@ -33,20 +39,31 @@ Run both after every slice. Fix failures before the next slice. If the project u
 
 **Done when:** every confirmed seam has a passing test and the typecheck is clean.
 
-## 4. Full validation
+## 5. Full validation
 
 Run the complete test suite (`go test ./...` or `pytest`) and the full typecheck. Fix any failures.
 
 **Done when:** full suite passes, typecheck is clean, zero failures.
 
-## 5. Review
+## 6. Review
 
 Run the `code-review` skill against the work done. Address any findings.
 
 **Done when:** review findings are resolved or explicitly acknowledged by the user.
 
-## 6. Commit
+## 7. Commit
 
 Commit the work to the current branch. Show the user a summary of changes before committing.
 
 **Done when:** changes committed, summary presented.
+
+## 8. Ship
+
+Ask the user whether they want to ship the work. If they decline, you are done.
+
+If they accept:
+- Push the branch to the remote.
+- Open a pull request. If the work traces to an issue, add a closing reference to the PR body (e.g. `Closes #123`) so merging closes it.
+- Generate a summary of the delivered work, suitable as the PR description.
+
+**Done when:** the user declined, or the branch is pushed, the PR is open with the issue linked (if any), and the summary is delivered.
