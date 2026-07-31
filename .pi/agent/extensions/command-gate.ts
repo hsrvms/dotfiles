@@ -17,12 +17,55 @@
 // remove and sudo commands are blocked as a fail-safe. RPC mode exposes
 // confirm/input dialogs, so it still works.
 //
+// Flags:
+//   --no-command-gate    Bypass all gating (remove + sudo pass through as-is).
+//
+// When a dialog is waiting for input, the extension also sends a desktop
+// notification (OSC 777 / OSC 99 / Windows toast) so you know pi needs
+// attention even if the terminal is in the background.
+//
 // Auto-discovered from ~/.pi/agent/extensions/. Reload with /reload.
 
 import { mkdtempSync, rmSync, writeFileSync, chmodSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { isToolCallEventType, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
+
+// ---------------------------------------------------------------------------
+// Desktop notification helpers (OSC 777 / OSC 99 / Windows toast)
+// ---------------------------------------------------------------------------
+
+function notify(title: string, body: string): void {
+  if (process.env.WT_SESSION) {
+    // Windows Terminal (WSL)
+    const { execFile } = require("node:child_process");
+    execFile("powershell.exe", ["-NoProfile", "-Command", windowsToastScript(title, body)]);
+  } else if (process.env.KITTY_WINDOW_ID) {
+    // Kitty
+    process.stdout.write(`\x1b]99;i=1:d=0;${title}\x1b\\`);
+    process.stdout.write(`\x1b]99;i=1:p=body;${body}\x1b\\`);
+  } else {
+    // Ghostty, iTerm2, WezTerm, rxvt-unicode
+    process.stdout.write(`\x1b]777;notify;${title};${body}\x07`);
+  }
+}
+
+function windowsToastScript(title: string, body: string): string {
+  const type = "Windows.UI.Notifications";
+  const mgr = `[${type}.ToastNotificationManager, ${type}, ContentType = WindowsRuntime]`;
+  const template = `[${type}.ToastTemplateType]::ToastText01`;
+  const toast = `[${type}.ToastNotification]::new($xml)`;
+  return [
+    `${mgr} > $null`,
+    `$xml = [${type}.ToastNotificationManager]::GetTemplateContent(${template})`,
+    `$xml.GetElementsByTagName('text')[0].AppendChild($xml.CreateTextNode('${body}')) > $null`,
+    `[${type}.ToastNotificationManager]::CreateToastNotifier('${title}').Show(${toast})`,
+  ].join("; ");
+}
+
+// ---------------------------------------------------------------------------
+// Command patterns
+// ---------------------------------------------------------------------------
 
 // Token patterns that count as "remove" commands. Matched as standalone words
 // anywhere in the command string so compound commands are covered too.
@@ -47,6 +90,13 @@ function singleQuote(value: string): string {
 }
 
 export default function (pi: ExtensionAPI) {
+  // --no-command-gate bypasses all gating.
+  pi.registerFlag("no-command-gate", {
+    description: "Bypass command gate (remove + sudo pass through as-is)",
+    type: "boolean",
+    default: false,
+  });
+
   pi.on("tool_call", async (event, ctx) => {
     if (!isToolCallEventType("bash", event)) return;
     const command = event.input.command;
@@ -56,6 +106,9 @@ export default function (pi: ExtensionAPI) {
     const sudo = SUDO_PATTERN.test(command);
 
     if (!remove && !sudo) return;
+
+    // Bypass everything when --no-command-gate is set.
+    if (pi.getFlag("no-command-gate")) return;
 
     // Fail-safe: without a UI we cannot ask for permission or a password.
     if (!ctx.hasUI) {
@@ -70,6 +123,7 @@ export default function (pi: ExtensionAPI) {
 
     // 1. Permission gate for destructive remove commands.
     if (remove) {
+      notify("pi — command-gate", "Remove command needs approval");
       const ok = await ctx.ui.confirm(
         "command-gate: allow remove command?",
         command,
@@ -84,6 +138,7 @@ export default function (pi: ExtensionAPI) {
 
     // 2. Password capture for sudo so it runs instead of being worked around.
     if (sudo) {
+      notify("pi — command-gate", "sudo command needs your password");
       const password = await ctx.ui.input(
         "command-gate: sudo detected — enter password (stored only for this command):",
         "",
