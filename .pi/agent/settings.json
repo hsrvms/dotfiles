@@ -1,9 +1,9 @@
 {
   "theme": "dark",
   "approvalMode": "ask",
-  "defaultProvider": "tokenrouter",
-  "defaultModel": "deepseek/deepseek-v4-pro",
-  "defaultThinkingLevel": "xhigh",
+  "defaultProvider": "alibaba",
+  "defaultModel": "qwen3.7-max",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "compaction": {
     "enabled": true,
@@ -15,5 +15,13 @@
     "maxRetries": 3
   },
   "lastChangelogVersion": "0.83.0",
-  "externalEditor": "vim"
+  "externalEditor": "vim",
+  "enabledModels": [
+    "alibaba/qwen3.7-max",
+    "qwencloud/qwen3.7-max",
+    "tokenrouter/deepseek/deepseek-v4-pro",
+    "qwencloud/qwen3.8-max-preview",
+    "qwencloud/qwen3.7-plus",
+    "tokenrouter/MiniMax-M3"
+  ]
 }

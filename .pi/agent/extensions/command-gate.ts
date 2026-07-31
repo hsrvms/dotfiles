@@ -4,7 +4,7 @@
 //
 //   1. Remove commands (`rm`, `rmdir`, `unlink`, `shred`, `find ... -delete`,
 //      `git clean`) require an interactive confirmation before they run.
-//   2. `sudo` commands prompt you for a password, then run through
+//   2. `sudo` commands prompt you for a masked password, then run through
 //      `sudo -A` (SUDO_ASKPASS) so the command can succeed against a real
 //      password prompt instead of the model retrying workarounds.
 //
@@ -20,16 +20,17 @@
 // Flags:
 //   --no-command-gate    Bypass all gating (remove + sudo pass through as-is).
 //
-// When a dialog is waiting for input, the extension also sends a desktop
-// notification (OSC 777 / OSC 99 / Windows toast) so you know pi needs
-// attention even if the terminal is in the background.
+// When a dialog is waiting for input, or when pi finishes a turn, the
+// extension sends a desktop notification (OSC 777 / OSC 99 / Windows toast)
+// so you know pi needs attention even if the terminal is in the background.
 //
 // Auto-discovered from ~/.pi/agent/extensions/. Reload with /reload.
 
 import { mkdtempSync, rmSync, writeFileSync, chmodSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { isToolCallEventType, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { createLocalBashOperations, isToolCallEventType, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { decodeKittyPrintable, matchesKey, Key } from "@earendil-works/pi-tui";
 
 // ---------------------------------------------------------------------------
 // Desktop notification helpers (OSC 777 / OSC 99 / Windows toast)
@@ -61,6 +62,81 @@ function windowsToastScript(title: string, body: string): string {
     `$xml.GetElementsByTagName('text')[0].AppendChild($xml.CreateTextNode('${body}')) > $null`,
     `[${type}.ToastNotificationManager]::CreateToastNotifier('${title}').Show(${toast})`,
   ].join("; ");
+}
+
+// ---------------------------------------------------------------------------
+// Masked password input (via ctx.ui.custom)
+// ---------------------------------------------------------------------------
+
+function visibleAnsiWidth(str: string): number {
+  // Strip ANSI escape sequences before measuring visible width.
+  return str.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, "").length;
+}
+
+function passwordPrompt(ctx: Parameters<Parameters<ExtensionAPI["on"]>[1]>[1]): Promise<string | undefined> {
+  return ctx.ui.custom<string | undefined>((tui, _theme, _keybindings, done) => {
+    let value = "";
+
+    return {
+      render(width: number): string[] {
+        const label = "command-gate: sudo detected — enter password (stored only for this command):";
+        const masked = "*".repeat(value.length);
+        // Inverse-video space as a block cursor, positioned after the masked text.
+        const cursor = "\x1b[7m \x1b[27m";
+        const inputLine = `> ${masked}${cursor}`;
+
+        // Word-wrap the label to fit the available width.
+        const labelLines: string[] = [];
+        let remaining = label;
+        while (remaining.length > 0) {
+          labelLines.push(remaining.slice(0, width));
+          remaining = remaining.slice(width);
+        }
+
+        const pad = " ".repeat(Math.max(0, width - visibleAnsiWidth(inputLine)));
+        return [...labelLines, inputLine + pad];
+      },
+
+      handleInput(data: string): void {
+        if (matchesKey(data, Key.enter)) {
+          done(value);
+          return;
+        }
+        if (matchesKey(data, Key.escape)) {
+          done(undefined);
+          return;
+        }
+        if (matchesKey(data, Key.backspace) || data === "\x7f") {
+          if (value.length > 0) {
+            value = value.slice(0, -1);
+          }
+          tui.requestRender();
+          return;
+        }
+        // Kitty CSI-u: terminals with Kitty protocol encode printable
+        // chars as e.g. \x1b[97u for 'a'. Decode first, then fall back
+        // to the raw character loop for non-Kitty terminals.
+        const kittyChar = decodeKittyPrintable(data);
+        if (kittyChar !== undefined) {
+          value += kittyChar;
+          tui.requestRender();
+          return;
+        }
+        // Accept printable characters only (ignore control chars).
+        let changed = false;
+        for (const ch of data) {
+          const code = ch.charCodeAt(0);
+          if (code >= 32 && code !== 0x7f) {
+            value += ch;
+            changed = true;
+          }
+        }
+        if (changed) tui.requestRender();
+      },
+
+      invalidate(): void {},
+    };
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -97,23 +173,72 @@ export default function (pi: ExtensionAPI) {
     default: false,
   });
 
-  pi.on("tool_call", async (event, ctx) => {
-    if (!isToolCallEventType("bash", event)) return;
-    const command = event.input.command;
-    if (typeof command !== "string" || command.length === 0) return;
+  // -----------------------------------------------------------------------
+  // Work-done notification: fire a desktop notification when the agent
+  // settles (finishes processing and has no more queued work).
+  // -----------------------------------------------------------------------
+  let workStarted = false;
 
+  pi.on("agent_start", async () => {
+    workStarted = true;
+  });
+
+  pi.on("agent_settled", async (_event, ctx) => {
+    if (!workStarted) return;
+    workStarted = false;
+    if (!ctx.hasUI) return;
+    notify("pi — done", "Work complete");
+  });
+
+  // -----------------------------------------------------------------------
+  // Shared sudo helper: prompts for a masked password, stages askpass
+  // files, and returns the wrapped command (or undefined if cancelled).
+  // -----------------------------------------------------------------------
+  async function gateSudo(
+    command: string,
+    ctx: Parameters<Parameters<ExtensionAPI["on"]>[1]>[1],
+  ): Promise<string | undefined> {
+    notify("pi — command-gate", "sudo command needs your password");
+    const password = await passwordPrompt(ctx);
+    if (password === undefined || password === "") return undefined;
+
+    const dir = mkdtempSync(join(tmpdir(), "pi-sudo-"));
+    const pwFile = join(dir, "pw");
+    const askpass = join(dir, "askpass");
+    writeFileSync(pwFile, password, { mode: 0o600 });
+    chmodSync(pwFile, 0o600);
+    // Self-destruct after one read so a wrong password isn't retried.
+    writeFileSync(
+      askpass,
+      `#!/bin/sh\ncat ${singleQuote(pwFile)} 2>/dev/null; rm -f ${singleQuote(pwFile)}\n`,
+      { mode: 0o700 },
+    );
+    chmodSync(askpass, 0o700);
+
+    const rewritten = command.replace(/\bsudo\b/g, "sudo -A");
+    return (
+      `( trap ${singleQuote(`rm -rf ${singleQuote(dir)}`)} EXIT; ` +
+      `export SUDO_ASKPASS=${singleQuote(askpass)}; ` +
+      `${rewritten} )`
+    );
+  }
+
+  // -----------------------------------------------------------------------
+  // Shared gate entry point: returns "block" | "pass" | wrapped command.
+  // -----------------------------------------------------------------------
+  async function gateCommand(
+    command: string,
+    ctx: Parameters<Parameters<ExtensionAPI["on"]>[1]>[1],
+  ): Promise<{ action: "block"; reason: string } | { action: "pass" } | { action: "rewrite"; command: string }> {
     const remove = looksLikeRemove(command);
     const sudo = SUDO_PATTERN.test(command);
+    if (!remove && !sudo) return { action: "pass" };
 
-    if (!remove && !sudo) return;
+    if (pi.getFlag("no-command-gate")) return { action: "pass" };
 
-    // Bypass everything when --no-command-gate is set.
-    if (pi.getFlag("no-command-gate")) return;
-
-    // Fail-safe: without a UI we cannot ask for permission or a password.
     if (!ctx.hasUI) {
       return {
-        block: true,
+        action: "block",
         reason:
           "command-gate: this command requires interactive confirmation " +
           "(remove and/or sudo) but the current mode has no UI. Re-run in " +
@@ -121,7 +246,6 @@ export default function (pi: ExtensionAPI) {
       };
     }
 
-    // 1. Permission gate for destructive remove commands.
     if (remove) {
       notify("pi — command-gate", "Remove command needs approval");
       const ok = await ctx.ui.confirm(
@@ -129,56 +253,76 @@ export default function (pi: ExtensionAPI) {
         command,
       );
       if (!ok) {
-        return {
-          block: true,
-          reason: "command-gate: remove command denied by user.",
-        };
+        return { action: "block", reason: "command-gate: remove command denied by user." };
       }
     }
 
-    // 2. Password capture for sudo so it runs instead of being worked around.
     if (sudo) {
-      notify("pi — command-gate", "sudo command needs your password");
-      const password = await ctx.ui.input(
-        "command-gate: sudo detected — enter password (stored only for this command):",
-        "",
-      );
-      if (password === undefined) {
-        return {
-          block: true,
-          reason: "command-gate: sudo command cancelled (no password entered).",
-        };
+      const wrapped = await gateSudo(command, ctx);
+      if (wrapped === undefined) {
+        return { action: "block", reason: "command-gate: sudo command cancelled (no password entered)." };
       }
+      return { action: "rewrite", command: wrapped };
+    }
 
-      // Stage the askpass helper + password in a private temp dir.
-      const dir = mkdtempSync(join(tmpdir(), "pi-sudo-"));
-      const pwFile = join(dir, "pw");
-      const askpass = join(dir, "askpass");
-      writeFileSync(pwFile, password, { mode: 0o600 });
-      chmodSync(pwFile, 0o600);
-      // The helper just echoes the password to stdout for `sudo -A`.
-      writeFileSync(
-        askpass,
-        `#!/bin/sh\ncat ${singleQuote(pwFile)}\n`,
-        { mode: 0o700 },
-      );
-      chmodSync(askpass, 0o700);
+    return { action: "pass" };
+  }
 
-      // Replace every `sudo` with `sudo -A`, export SUDO_ASKPASS, and wrap in
-      // a subshell with an EXIT trap so the temp files are always removed.
-      const rewritten = command.replace(/\bsudo\b/g, "sudo -A");
-      const wrapped =
-        `( trap ${singleQuote(`rm -rf ${singleQuote(dir)}`)} EXIT; ` +
-        `export SUDO_ASKPASS=${singleQuote(askpass)}; ` +
-        `${rewritten} )`;
+  // -----------------------------------------------------------------------
+  // LLM-called bash tool: intercept and possibly rewrite the command.
+  // -----------------------------------------------------------------------
+  pi.on("tool_call", async (event, ctx) => {
+    if (!isToolCallEventType("bash", event)) return;
+    const command = event.input.command;
+    if (typeof command !== "string" || command.length === 0) return;
 
-      event.input.command = wrapped;
-
-      // Best-effort cleanup if the process is killed mid-command. The trap
-      // inside the subshell is the primary cleanup path.
+    const result = await gateCommand(command, ctx);
+    if (result.action === "block") {
+      return { block: true, reason: result.reason };
+    }
+    if (result.action === "rewrite") {
+      event.input.command = result.command;
+      // Best-effort cleanup on abort: the trap inside the subshell is the
+      // primary cleanup path, but this catches process kills.
       ctx.signal?.addEventListener("abort", () => {
-        rmSync(dir, { recursive: true, force: true });
+        // The temp dir path is embedded in the command; parse it out.
+        const match = result.command.match(/rm -rf (.+?)\'/);
+        if (match) {
+          rmSync(match[1], { recursive: true, force: true });
+        }
       });
     }
+  });
+
+  // -----------------------------------------------------------------------
+  // User `!` commands: intercept and gate remove/sudo typed by the user.
+  // -----------------------------------------------------------------------
+  pi.on("user_bash", async (event, ctx) => {
+    const command = event.command;
+    if (typeof command !== "string" || command.length === 0) return;
+
+    const result = await gateCommand(command, ctx);
+    if (result.action === "pass") return;
+
+    if (result.action === "block") {
+      return {
+        result: {
+          output: result.reason,
+          exitCode: 1,
+          cancelled: false,
+          truncated: false,
+        },
+      };
+    }
+
+    // result.action === "rewrite": execute the wrapped command.
+    const local = createLocalBashOperations();
+    return {
+      operations: {
+        exec(cmd, cwd, options) {
+          return local.exec(result.command, cwd, options);
+        },
+      },
+    };
   });
 }
