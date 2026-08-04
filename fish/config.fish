@@ -1,4 +1,8 @@
 source /usr/share/cachyos-fish-config/cachyos-config.fish
+
+# starship prompt
+starship init fish | source
+
 # set -Ux EDITOR (which micro)
 
 abbr -a fzfa "fzf --ansi"

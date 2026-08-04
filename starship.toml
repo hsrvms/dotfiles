@@ -1,0 +1,93 @@
+# Starship prompt config
+# Managed in ~/dotfiles, symlinked to ~/.config/starship.toml
+
+# --- Global behavior ---
+add_newline = true
+scan_timeout = 10
+
+# --- Prompt order ---
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$python\
+$rust\
+$nodejs\
+$go\
+$java\
+$package\
+$cmd_duration\
+$line_break\
+$character"""
+
+# --- Character (the prompt symbol) ---
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+# --- Username / host: only show when not the default user ---
+[username]
+show_always = false
+style_user = "bold yellow"
+style_root = "bold red"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+format = "[@$hostname](bold red) "
+
+# --- Directory ---
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " [🔒]"
+
+# --- Git branch ---
+[git_branch]
+style = "bold purple"
+format = " on [$symbol$branch]($style) "
+symbol = " "
+
+# --- Git status ---
+[git_status]
+style = "bold cyan"
+
+# --- Git state (merge/rebase/revert) ---
+[git_state]
+style = "bold yellow"
+
+# --- Languages (only shown when relevant files are present) ---
+[python]
+format = " [🐍 $version]($style) "
+style = "bold green"
+
+[rust]
+format = " [🦀 $version]($style) "
+style = "bold red"
+
+[nodejs]
+format = " [⬢ $version]($style) "
+style = "bold green"
+
+[golang]
+format = " [🐹 $version]($style) "
+style = "bold cyan"
+
+[java]
+format = " [☕ $version]($style) "
+style = "bold yellow"
+
+[package]
+format = " [$version]($style) "
+style = "bold yellow"
+
+# --- Command duration ---
+[cmd_duration]
+min_time = 2000
+show_milliseconds = true
+format = " took [$duration]($style) "
+style = "bold yellow"
