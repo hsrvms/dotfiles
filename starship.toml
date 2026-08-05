@@ -52,27 +52,27 @@ style = "bold cyan"
 
 # Language module logo color — separates the brand logo from the version text
 [python]
-format = " [$symbol](bold magenta) [$version]($style) "
+format = " [$symbol](bold blue) [$version]($style) "
 symbol = "\uE73C"
 style = "bold green"
 
 [golang]
-format = " [$symbol](bold magenta) [$version]($style) "
+format = " [$symbol](bold blue) [$version]($style) "
 symbol = "\uE627"
 style = "bold cyan"
 
 [nodejs]
-format = " [$symbol](bold magenta) [$version]($style) "
+format = " [$symbol](bold yellow) [$version]($style) "
 symbol = "\uE719"
 style = "bold green"
 
 [java]
-format = " [$symbol](bold magenta) [$version]($style) "
+format = " [$symbol](bold brown) [$version]($style) "
 symbol = "\uE738"
 style = "bold yellow"
 
 [package]
-format = " [$symbol](bold magenta) [$version]($style) "
+format = " [$symbol](bold orange) [$version]($style) "
 symbol = "\uF03D3"
 style = "bold yellow"
 
