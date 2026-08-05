@@ -13,6 +13,11 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$python\
+$golang\
+$nodejs\
+$java\
+$package\
 $cmd_duration\
 $line_break\
 $character"""
@@ -44,6 +49,26 @@ style = "bold yellow"
 
 [git_status]
 style = "bold cyan"
+
+[python]
+format = " [🐍 $version]($style) "
+style = "bold green"
+
+[golang]
+format = " [🐹 $version]($style) "
+style = "bold cyan"
+
+[nodejs]
+format = " [⬢ $version]($style) "
+style = "bold green"
+
+[java]
+format = " [☕ $version]($style) "
+style = "bold yellow"
+
+[package]
+format = " [$version]($style) "
+style = "bold yellow"
 
 [cmd_duration]
 min_time = 2000
