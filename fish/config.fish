@@ -12,6 +12,10 @@ abbr -a gotest 'GOTEST_SKIPNOTESTS="true" gotest'
 
 # alias zed zeditor
 
+# SSH tunnel to Contabo for db (15432) + MinIO console (19001)
+# Local ports are offset to avoid clashing with any local postgres on 5432.
+alias omnix-tunnel 'ssh -N -L 15432:127.0.0.1:5432 -L 19001:127.0.0.1:9001 admin@100.100.251.101'
+
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
