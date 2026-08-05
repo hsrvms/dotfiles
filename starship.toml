@@ -51,23 +51,28 @@ style = "bold yellow"
 style = "bold cyan"
 
 [python]
-format = " [🐍 $version]($style) "
+format = " [$symbol$version]($style) "
+symbol = "\uE735"
 style = "bold green"
 
 [golang]
-format = " [🐹 $version]($style) "
+format = " [$symbol$version]($style) "
+symbol = "\uE727"
 style = "bold cyan"
 
 [nodejs]
-format = " [⬢ $version]($style) "
+format = " [$symbol$version]($style) "
+symbol = "\uE718"
 style = "bold green"
 
 [java]
-format = " [☕ $version]($style) "
+format = " [$symbol$version]($style) "
+symbol = "\uE738"
 style = "bold yellow"
 
 [package]
-format = " [$version]($style) "
+format = " [$symbol$version]($style) "
+symbol = "\uF047"
 style = "bold yellow"
 
 [cmd_duration]
