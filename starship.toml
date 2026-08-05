@@ -52,17 +52,17 @@ style = "bold cyan"
 
 [python]
 format = " [$symbol$version]($style) "
-symbol = "\uE735"
+symbol = "\uE73C"
 style = "bold green"
 
 [golang]
 format = " [$symbol$version]($style) "
-symbol = "\uE727"
+symbol = "\uE627"
 style = "bold cyan"
 
 [nodejs]
 format = " [$symbol$version]($style) "
-symbol = "\uE718"
+symbol = "\uE719"
 style = "bold green"
 
 [java]
@@ -72,7 +72,7 @@ style = "bold yellow"
 
 [package]
 format = " [$symbol$version]($style) "
-symbol = "\uF047"
+symbol = "\uF03D3"
 style = "bold yellow"
 
 [cmd_duration]
