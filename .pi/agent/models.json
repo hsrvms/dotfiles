@@ -228,7 +228,7 @@
 						"low": null,
 						"medium": null,
 						"high": "high",
-						"max": null,
+						"max": "max",
 						"xhigh": "xhigh"
 					},
 					"cost": {

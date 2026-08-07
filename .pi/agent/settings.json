@@ -14,7 +14,7 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "0.83.0",
+  "lastChangelogVersion": "0.84.0",
   "externalEditor": "vim",
   "enabledModels": [
     "alibaba/qwen3.7-max",
