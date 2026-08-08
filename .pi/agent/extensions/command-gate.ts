@@ -30,7 +30,7 @@ import { mkdtempSync, rmSync, writeFileSync, chmodSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createLocalBashOperations, isToolCallEventType, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { decodeKittyPrintable, matchesKey, Key } from "@earendil-works/pi-tui";
+import { decodeKittyPrintable, matchesKey, Key, wrapTextWithAnsi } from "@earendil-works/pi-tui";
 
 // ---------------------------------------------------------------------------
 // Desktop notification helpers (OSC 777 / OSC 99 / Windows toast)
@@ -160,6 +160,79 @@ function looksLikeRemove(command: string): boolean {
   return REMOVE_PATTERNS.some((re) => re.test(command));
 }
 
+// All matches of REMOVE_PATTERNS in a command, as non-overlapping spans
+// sorted by position (a match fully contained in an earlier span is skipped,
+// e.g. "rm" inside "find . -name 'rm' -delete").
+function findDestructiveMatches(command: string): { start: number; end: number }[] {
+  const combined = new RegExp(REMOVE_PATTERNS.map((re) => re.source).join("|"), "g");
+  const matches: { start: number; end: number }[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = combined.exec(command)) !== null) {
+    const last = matches[matches.length - 1];
+    if (last && m.index < last.end) continue;
+    matches.push({ start: m.index, end: m.index + m[0].length });
+  }
+  return matches;
+}
+
+// One-line summary of what triggered the gate, e.g. "rm -rf, find . -delete".
+function describeDestructiveMatches(command: string): string {
+  const words = findDestructiveMatches(command).map(({ start, end }) => command.slice(start, end));
+  return [...new Set(words)].join(", ");
+}
+
+// ---------------------------------------------------------------------------
+// Remove-command confirmation dialog
+// ---------------------------------------------------------------------------
+
+// Themed confirmation for remove commands (TUI only): renders the command
+// with every destructive match highlighted in bold error red plus a one-line
+// summary of what triggered the gate, so the risk is visible at a glance even
+// in long commands. Enter/y allows, Esc/n denies.
+function confirmRemoveDialog(
+  ctx: Parameters<Parameters<ExtensionAPI["on"]>[1]>[1],
+  command: string,
+): Promise<boolean> {
+  return ctx.ui.custom<boolean>((tui, theme, _keybindings, done) => {
+    const spans = findDestructiveMatches(command);
+
+    // Colorize the command: destructive spans in bold error red, the rest in
+    // the regular text color.
+    let colored = "";
+    let cursor = 0;
+    for (const { start, end } of spans) {
+      colored += theme.fg("text", command.slice(cursor, start));
+      colored += theme.bold(theme.fg("error", command.slice(start, end)));
+      cursor = end;
+    }
+    colored += theme.fg("text", command.slice(cursor));
+
+    const title = theme.fg("accent", "command-gate: allow remove command?");
+    const destructive = theme.bold(theme.fg("error", `Destructive: ${describeDestructiveMatches(command)}`));
+    const hint = theme.fg("muted", "Enter = allow    Esc = deny");
+
+    return {
+      render(width: number): string[] {
+        const wrap = (text: string) => wrapTextWithAnsi(text, Math.max(1, width));
+        return [...wrap(title), ...wrap(destructive), "", ...wrap(colored), "", hint];
+      },
+
+      handleInput(data: string): void {
+        if (matchesKey(data, Key.enter) || data === "y" || data === "Y") {
+          done(true);
+          return;
+        }
+        if (matchesKey(data, Key.escape) || data === "n" || data === "N") {
+          done(false);
+          return;
+        }
+      },
+
+      invalidate(): void {},
+    };
+  });
+}
+
 // Escape a string for safe embedding inside single quotes in a shell script.
 function singleQuote(value: string): string {
   return `'${value.replace(/'/g, `'\\''`)}'`;
@@ -248,10 +321,15 @@ export default function (pi: ExtensionAPI) {
 
     if (remove) {
       notify("pi — command-gate", "Remove command needs approval");
-      const ok = await ctx.ui.confirm(
-        "command-gate: allow remove command?",
-        command,
-      );
+      // The themed dialog is TUI-only; ctx.ui.custom() returns undefined in
+      // RPC mode, so fall back to the plain confirm there.
+      const ok =
+        ctx.mode === "tui"
+          ? await confirmRemoveDialog(ctx, command)
+          : await ctx.ui.confirm(
+              "command-gate: allow remove command?",
+              `Destructive: ${describeDestructiveMatches(command)}\n${command}`,
+            );
       if (!ok) {
         return { action: "block", reason: "command-gate: remove command denied by user." };
       }
