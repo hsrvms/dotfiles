@@ -52,7 +52,8 @@
 - [ ] **Step A6b:** Rebuild appearance in v5 Settings GUI (v4 settings not migrated)
 - [x] **Step A7:** Remove v4 packages (`noctalia-shell`, `noctalia-qs`)
 - [x] **Step A8:** Clean up v4 leftovers (cache, config → `~/noctalia-v4-backup/`, `qt6-wayland`/`scenefx0.4`/`wlroots0.19`)
-- [ ] **Step A9:** Commit changes to dotfiles repo
+- [x] **Step A9:** Commit changes to dotfiles repo (`dc4eeba`)
+- [x] Snapshot #443 taken: `after noctalia v5 migration complete`
 
 ---
 
