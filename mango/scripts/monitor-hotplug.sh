@@ -2,23 +2,16 @@
 
 apply() {
     if wlr-randr | grep -q '^DP-1 '; then
-        # External connected
+        # Docked: laptop (eDP-1) on the left, external (DP-1) on the right
+        # eDP-1 custom 2560x1600 @ scale 1.25 => logical width 2048,
+        # so DP-1 sits at x=2048
         wlr-randr \
-            --output DP-1 --on \
-            --mode 1920x1080@143.998 \
-            --pos 0,0
-
-        wlr-randr \
-            --output eDP-1 --off
+            --output eDP-1 --on --custom-mode 2560x1600@60 --pos 0,0 \
+            --output DP-1 --on --mode 1920x1080@143.998 --pos 2048,0
     else
-        # Laptop only
+        # Laptop only: internal on
         wlr-randr \
-            --output eDP-1 --on
-
-        sleep 0.3
-
-        wlr-randr \
-            --output eDP-1 --custom-mode 2560x1600@60
+            --output eDP-1 --on --custom-mode 2560x1600@60
     fi
 }
 
