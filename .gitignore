@@ -1,1 +1,4 @@
 secrets.fish
+
+# pi subagent runtime state
+.pi/subagents/

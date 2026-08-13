@@ -44,7 +44,7 @@ On top of whatever the repo documents, the Standards axis always carries the **s
 
 ### 4. Spawn both sub-agents in parallel
 
-Send a single message with two `Agent` tool calls.
+Send a single message with two `Agent` tool calls. Spawn both axes as **read-only** review sub-agents (no `edit`/`write` tools).
 
 **Standards sub-agent prompt** — include:
 
