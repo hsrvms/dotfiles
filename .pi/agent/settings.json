@@ -1,10 +1,11 @@
 {
   "theme": "dark",
   "approvalMode": "ask",
-  "defaultProvider": "tokenrouter",
-  "defaultModel": "deepseek/deepseek-v4-flash-0731",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": true,
+  "tuiMode": "fullscreen",
   "compaction": {
     "enabled": true,
     "reserveTokens": 16384,
@@ -37,6 +38,8 @@
   "packages": [
     "npm:@narumitw/pi-usage",
     "npm:pi-subagents",
+    "npm:pi-vim",
     "npm:@tavily/pi-extension"
-  ]
+  ],
+  "showHardwareCursor": false
 }
