@@ -1,5 +1,14 @@
 source /usr/share/cachyos-fish-config/cachyos-config.fish
 
+# vi keybindings for the command line
+fish_vi_key_bindings
+
+# cursor shape per mode: block in Normal, line in Insert, block in Replace
+set fish_cursor_default block
+set fish_cursor_insert line
+set fish_cursor_replace_one underscore
+set fish_cursor_visual block
+
 # starship prompt
 starship init fish | source
 
