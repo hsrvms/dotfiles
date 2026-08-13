@@ -36,6 +36,7 @@
   ],
   "packages": [
     "npm:@narumitw/pi-usage",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:@tavily/pi-extension"
   ]
 }
