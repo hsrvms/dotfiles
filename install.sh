@@ -33,9 +33,9 @@ PACKAGES=(
     brightnessctl
     network-manager-applet
     blueman
-    
+
     # Navigation & Interface
-    ghostty
+    foot
     rofi-wayland
     thunar
     yazi
@@ -52,7 +52,7 @@ PACKAGES=(
     imv
     btop
     wev
-    
+
     # Desktop Environment Utilities
     waybar
     wl-clipboard
@@ -61,7 +61,7 @@ PACKAGES=(
     slurp
     swappy
     swaync
-    
+
     # Power & Lock
     hyprlock
     hypridle
@@ -78,7 +78,7 @@ PACKAGES=(
 echo "Installing packages..."
 yay -S --needed --noconfirm "${PACKAGES[@]}"
 
-ya pkg add yazi-rs/flavors:catppuccin-mocha  
+ya pkg add yazi-rs/flavors:catppuccin-mocha
 # Set imv for images
 xdg-mime default imv.desktop image/jpeg image/png image/gif image/webp image/svg+xml
 # Set mpv for videos
@@ -107,7 +107,6 @@ ln -sf ~/dotfiles/btop ~/.config/btop
 ln -sf ~/dotfiles/cliphist ~/.config/cliphist
 ln -sf ~/dotfiles/fastfetch ~/.config/fastfetch
 ln -sf ~/dotfiles/fish ~/.config/fish
-ln -sf ~/dotfiles/ghostty ~/.config/ghostty
 ln -sf ~/dotfiles/helix ~/.config/helix
 ln -sf ~/dotfiles/hypr ~/.config/hypr
 ln -sf ~/dotfiles/kitty ~/.config/kitty
@@ -120,7 +119,8 @@ ln -sf ~/dotfiles/waybar ~/.config/waybar
 ln -sf ~/dotfiles/wlogout ~/.config/wlogout
 sudo ln -sf ~/dotfiles/xorg.conf.d/50-mouse-acceleration.conf /etc/X11/xorg.conf.d/50-mouse-acceleration.conf
 ln -sf ~/dotfiles/yazi ~/.config/yazi
-ln -sf ~/dotfiles/zed ~/.config/zed 
+ln -sf ~/dotfiles/zed ~/.config/zed
+ln -sf ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 gsettings set org.gnome.desktop.interface cursor-theme 'catppuccin-mocha-blue-cursors'
 
