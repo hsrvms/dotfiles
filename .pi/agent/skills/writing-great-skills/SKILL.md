@@ -1,5 +1,6 @@
 ---
 name: writing-great-skills
+user-invocable: true
 description: Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.
 disable-model-invocation: true
 ---

@@ -1,5 +1,6 @@
 ---
 name: piv-loop
+user-invocable: true
 description: >
   Guided Plan-Implement-Validate (PIV) development loop with test-driven implementation
   and human-in-the-loop review. Use when the user says "piv", "piv loop", "plan implement

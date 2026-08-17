@@ -3,7 +3,7 @@
   "approvalMode": "ask",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "max",
   "hideThinkingBlock": true,
   "tuiMode": "fullscreen",
   "compaction": {
@@ -15,15 +15,11 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.2",
   "externalEditor": "vim",
   "enabledModels": [
-    "alibaba/qwen3.7-max",
     "qwencloud/qwen3.7-max",
     "tokenrouter/deepseek/deepseek-v4-pro",
-    "qwencloud/qwen3.7-plus",
-    "qwencloud/deepseek-v4-pro",
-    "openrouter/qwen/qwen3.7-plus",
     "openai-codex/gpt-5.6-terra",
     "openai-codex/gpt-5.6-luna",
     "openai-codex/gpt-5.6-sol",
@@ -31,9 +27,7 @@
     "openrouter/deepseek/deepseek-v4-flash-0731",
     "deepseek/deepseek-v4-flash",
     "qwencloud/qwen3.8-max",
-    "openrouter/openai/gpt-5.6-luna",
-    "openrouter/openai/gpt-5.6-terra",
-    "openrouter/openai/gpt-5.6-sol"
+    "deepseek/deepseek-v4-pro"
   ],
   "packages": [
     "npm:@narumitw/pi-usage",

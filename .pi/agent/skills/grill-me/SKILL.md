@@ -1,5 +1,6 @@
 ---
 name: grill-me
+user-invocable: true
 description: >
   A relentless interview to sharpen a plan, design, architecture, or idea.
   Use when the user says "grill me", "grill", "grilling", "stress test my plan",

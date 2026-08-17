@@ -1,5 +1,6 @@
 ---
 name: web-design-guidelines
+user-invocable: true
 description: Lint UI code against Web Interface Guidelines. Use when asked to review UI, check accessibility, audit design, or review UX.
 ---
 

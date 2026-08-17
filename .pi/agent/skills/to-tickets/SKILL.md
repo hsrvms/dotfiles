@@ -1,5 +1,6 @@
 ---
 name: to-tickets
+user-invocable: true
 description: Break a plan, spec, or conversation into tracer-bullet tickets — vertical slices each declaring its blockers.
 disable-model-invocation: true
 ---
