@@ -1,0 +1,15 @@
+# Secrets — never commit. Reasonix reads api keys from this dir's .env
+# (and legacy config.json used to store them inline).
+.env
+.env.*
+config.json
+
+# Runtime state
+logs/
+projects/
+state/
+stats/
+cli-telemetry-install-id
+cli-telemetry-pending/
+cli-telemetry-ping-*
+*.log

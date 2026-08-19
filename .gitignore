@@ -2,3 +2,6 @@ secrets.fish
 
 # pi subagent runtime state
 .pi/subagents/
+
+# fish universal variable store (runtime state; `set -U` can silently write secrets here)
+fish/fish_variables

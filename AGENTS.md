@@ -16,6 +16,8 @@ paru, rofi, starship.toml, tridactyl, yazi, zed. `~/.tmux.conf` symlinks to
 `tmux/tmux.conf`. `skills/` is the exception to the one-app-per-directory
 rule: shared SKILL.md bundles, deployed by symlinking
 `~/.agents/skills -> ~/dotfiles/skills` (read by pi, reasonix, and codewhale).
+`~/.reasonix` symlinks to `.reasonix/` (reasonix config; its `.env`, `logs/`,
+`projects/`, and telemetry files are gitignored — see `.reasonix/.gitignore`).
 `cliphist` has no `~/.config/cliphist` symlink — it is not
 actively used by autostart.
 
