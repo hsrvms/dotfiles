@@ -13,7 +13,10 @@ Each top-level directory mirrors that app's `~/.config/<name>` and is deployed
 by symlinking. On this machine `~/.config/<name> -> ~/dotfiles/<name>` already
 exists for: btop, fastfetch, fish, foot, kmonad, mango, nix, noctalia, nvim,
 paru, rofi, starship.toml, tridactyl, yazi, zed. `~/.tmux.conf` symlinks to
-`tmux/tmux.conf`. `cliphist` has no `~/.config/cliphist` symlink — it is not
+`tmux/tmux.conf`. `skills/` is the exception to the one-app-per-directory
+rule: shared SKILL.md bundles, deployed by symlinking
+`~/.agents/skills -> ~/dotfiles/skills` (read by pi, reasonix, and codewhale).
+`cliphist` has no `~/.config/cliphist` symlink — it is not
 actively used by autostart.
 
 **Gotchas:**
@@ -104,9 +107,11 @@ It is not app config:
 - `settings.json`: provider/model preferences (deepseek), approval mode, TUI
   mode. This file and `models-store.json` are frequently modified by the
   running agent; do not churn them.
-- `extensions/` (TypeScript: command-gate, deepseek-usage, image-fallback) and
-  `skills/` (SKILL.md bundles for coding workflows) are real code with tests
-  (`.test.mjs` files, run with node) — the only tests in this repo.
+- `extensions/` (TypeScript: command-gate, deepseek-usage, image-fallback) is
+  real code with tests (`.test.mjs` files, run with node) — the only tests in
+  this repo. Skills no longer live under `.pi/`: they live in the top-level
+  `skills/` directory, shared with other agents through the
+  `~/.agents/skills` symlink (see Layout & deployment).
 - `get-secret.sh` reads keys from `~/.pi/agent/.env`; that file, `auth.json`,
   `sessions/`, `missions/`, `run-history.jsonl`, and `node_modules/` are
   ignored via `.pi/agent/.gitignore`. Never commit `.env` or `auth.json`.
