@@ -37,17 +37,19 @@ After each slice, run a **tight feedback loop**:
 
 Run both after every slice. Fix failures before the next slice. If the project uses a different toolchain, detect it from the project root (Makefile, pyproject.toml, go.mod, etc.) and use the project's own commands.
 
+Cost discipline: prefer targeted reads (grep, `read_file` with offsets/ranges) over full-file reads, and never re-read a file whose content is already in context. If context usage is high, compress before continuing.
+
 **Done when:** every confirmed seam has a passing test and the typecheck is clean.
 
 ## 5. Full validation
 
-Run the complete test suite (`go test ./...` or `pytest`) and the full typecheck. Fix any failures.
+Run the complete test suite (`go test ./...` or `pytest`) and the full typecheck — once, at the end. Grep or tail the logs for failures instead of dumping full output into context. Fix any failures.
 
 **Done when:** full suite passes, typecheck is clean, zero failures.
 
 ## 6. Review
 
-Run the `code-review` skill against the work done. Address any findings.
+Run the `review` subagent skill against the branch diff — it runs in an isolated session, so only its findings enter your context. Task it with both axes: repo standards and compliance with every requirement of the originating issue/spec (it can read the issue via `gh issue view`). Run `security-review` in parallel when the change touches auth, input parsing, file I/O, or external requests. Address any findings.
 
 **Done when:** review findings are resolved or explicitly acknowledged by the user.
 
