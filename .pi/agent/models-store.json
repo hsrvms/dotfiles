@@ -153,7 +153,7 @@
         }
       }
     ],
-    "checkedAt": 1787135258375,
+    "checkedAt": 1787150278772,
     "lastModified": 1785917070000,
     "etag": "W/\"27643754c3051fc949d164a1d3d72dc0\""
   },
@@ -1425,13 +1425,13 @@
           "text"
         ],
         "cost": {
-          "input": 0.27,
-          "output": 1.12,
-          "cacheRead": 0.135,
+          "input": 0.25,
+          "output": 1,
+          "cacheRead": 0,
           "cacheWrite": 0
         },
         "contextWindow": 163840,
-        "maxTokens": 65536,
+        "maxTokens": 163840,
         "compat": {
           "supportsDeveloperRole": false,
           "thinkingFormat": "openrouter"
@@ -1682,9 +1682,9 @@
           "text"
         ],
         "cost": {
-          "input": 1.32,
-          "output": 3.96,
-          "cacheRead": 0.044,
+          "input": 0.66,
+          "output": 1.98,
+          "cacheRead": 0.022,
           "cacheWrite": 0
         },
         "contextWindow": 1048576,
@@ -7032,13 +7032,13 @@
           "image"
         ],
         "cost": {
-          "input": 0.225,
-          "output": 1.8,
-          "cacheRead": 0.225,
+          "input": 0.25,
+          "output": 1.25,
+          "cacheRead": 0.25,
           "cacheWrite": 0
         },
         "contextWindow": 262144,
-        "maxTokens": 65536,
+        "maxTokens": 262144,
         "compat": {
           "supportsDeveloperRole": false,
           "thinkingFormat": "openrouter"
@@ -8572,9 +8572,9 @@
         }
       }
     ],
-    "checkedAt": 1787135258365,
-    "lastModified": 1787132282000,
-    "etag": "W/\"eab3fedf4682c85eb34d4d4cba15b678\""
+    "checkedAt": 1787150278790,
+    "lastModified": 1787141948000,
+    "etag": "W/\"c6650ed7ee735f620526e11a9fe1e057\""
   },
   "openai-codex": {
     "models": [
@@ -8824,7 +8824,7 @@
         }
       }
     ],
-    "checkedAt": 1787135258325,
+    "checkedAt": 1787150278809,
     "lastModified": 1786365287000,
     "etag": "W/\"7572a78e60b78526600ed2a9b74b579d\""
   },
@@ -8897,7 +8897,7 @@
         }
       }
     ],
-    "checkedAt": 1787135258377,
+    "checkedAt": 1787150278780,
     "lastModified": 1786444602000,
     "etag": "W/\"c856e605b796f2df5d2cc4d7c20336f5\""
   }
