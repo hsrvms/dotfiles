@@ -5,3 +5,8 @@ secrets.fish
 
 # fish universal variable store (runtime state; `set -U` can silently write secrets here)
 fish/fish_variables
+
+# reasonix runtime state — keep only config.toml (reasonix writes sessions,
+# metrics, desktop snapshots, ids, locks, diagnostics, etc. here)
+.reasonix/*
+!.reasonix/config.toml
