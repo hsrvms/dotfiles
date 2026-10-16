@@ -6,7 +6,7 @@
 # This script listens on logind's PrepareForSleep D-Bus signal from the system
 # bus and restarts noctalia when the "resumed" (false) signal arrives.
 #
-# Started from mango autostart with exec-once.
+# Started from mango autostart with exec_once.
 
 dbus-monitor --system \
   "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'" |
