@@ -1,6 +1,0 @@
-auth.json
-sessions/
-missions/
-node_modules/
-.env
-run-history.jsonl

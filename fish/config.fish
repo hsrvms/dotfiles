@@ -27,7 +27,7 @@ abbr -a gotest 'GOTEST_SKIPNOTESTS="true" gotest'
 
 # SSH tunnel to Contabo for db (15432) + MinIO console (19001)
 # Local ports are offset to avoid clashing with any local postgres on 5432.
-alias omnix-tunnel 'ssh -N -L 15432:127.0.0.1:5432 -L 19001:127.0.0.1:9001 admin@100.100.251.101'
+alias omnix-tunnel 'ssh -N -L 35432:127.0.0.1:5432 -L 19001:127.0.0.1:9001 admin@100.100.251.101'
 
 # SSH tunnel to Sage production Postgres (25432) - container IP on sage_default
 alias sage-tunnel 'ssh -N -L 25432:172.19.0.2:5432 agentsfer-contabo-server'

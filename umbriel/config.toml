@@ -89,6 +89,11 @@ radius = 3
 # [colors]
 # backdrop = "#000000FF"
 
+[colors.border]
+focused = "#FF8243"
+unfocused = "#F8C610FF"
+outer = "#1A1A1FFF"
+
 # ==============================================================================
 # Effects
 # Every effect is off until a preset is selected; border and window effects
@@ -228,7 +233,7 @@ repeat_delay = 200
 "Mod+Shift+W" = "spawn:noctalia msg panel-toggle wallpaper"
 "Mod+W" = "spawn:noctalia msg wallpaper-random"
 "Mod+V" = "spawn:noctalia msg panel-toggle clipboard"
-"Mod+Alt+N" = "workspace-set-layout:toggle"
+"Mod+Alt+N" = "workspace-set-layout:toggle:scrolling,dwindle"
 "Ctrl+Alt+K" = "keyboard-layout-next"
 "Mod+Alt+L" = "spawn:noctalia msg session lock"
 "Mod+Alt+Ctrl+L" = "spawn:noctalia msg panel-toggle session"
